@@ -126,6 +126,8 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
 }
 .hpf::after{content:'';position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--amb);opacity:.35;pointer-events:none}
 .hpf img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(8%) contrast(1.05)}
+.pglink{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--Mf);font-size:.62rem;color:var(--amb);text-decoration:none;border:1px solid var(--faint);padding:.28rem .75rem;margin-top:.8rem;letter-spacing:.08em;transition:all .2s}
+.pglink:hover{border-color:var(--amb);background:var(--faint)}
 /* Bouton thème */
 .tbtn{font-family:var(--Mf);font-size:.7rem;background:var(--faint);color:var(--amb);border:1px solid var(--amb);padding:.28rem .8rem;border-radius:2px;cursor:none;letter-spacing:.1em;transition:all .2s;margin-right:.5rem}
 .tbtn:hover{background:var(--amb);color:var(--bg)}
@@ -228,7 +230,7 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
   <div class="pg">
 
     <div class="pc rv">
-      <div class="pi"><div class="pigrid"></div><div class="pico">&#129302;</div></div>
+      <div class="pi"><img src="project1.jpeg" alt="Path Tracking Stanley Controller"><div class="pigrid"></div></div>
       <div class="pb">
         <div class="pnum">01</div>
         <h3 class="ptit" data-fr="Path Tracking - Stanley Controller" data-en="Path Tracking - Stanley Controller">Path Tracking - Stanley Controller</h3>
@@ -239,20 +241,19 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
     </div>
 
     <div class="pc rv">
-      <div class="pi"><div class="pigrid"></div><div class="pico">&#129470;</div></div>
+      <div class="pi"><img src="project2.jpeg" alt="Bras Robotique IK xArm"><div class="pigrid"></div></div>
       <div class="pb">
         <div class="pnum">02</div>
-        <h3 class="ptit" data-fr="Bras Robotique - Solveur IK" data-en="Robotic Arm - IK Solver">Bras Robotique - Solveur IK</h3>
-        <div class="pctx" data-fr="Projet equipe - Bras xArm - Pick and Place de cubes" data-en="Team project - xArm - Cube Pick and Place">Projet equipe - Bras xArm - Pick and Place de cubes</div>
-        <p class="pdesc" data-fr="Solveur de cinematique inverse par Damped Least Squares construit a partir du Jacobien geometrique. Parser URDF custom, integration sur bras physique xArm. Simulation Gazebo en cours." data-en="Inverse kinematics solver using Damped Least Squares built from the geometric Jacobian. Custom URDF parser, integration on physical xArm. Gazebo simulation in progress.">Solveur de cinematique inverse par Damped Least Squares construit a partir du Jacobien geometrique. Parser URDF custom, integration sur bras physique xArm. Simulation Gazebo en cours.</p>
-        <div class="pst"><span class="ptag">Python</span><span class="ptag">URDF</span><span class="ptag">Gazebo</span><span class="ptag">xArm</span></div>
+        <h3 class="ptit" data-fr="Bras Robotique xArm - Module Cinematique" data-en="xArm Robotic Arm - Kinematics Module">Bras Robotique xArm - Module Cinematique</h3>
+        <div class="pctx" data-fr="Projet equipe - Pick and Place de cubes" data-en="Team project - Cube Pick and Place">Projet equipe - Pick and Place de cubes</div>
+        <p class="pdesc" data-fr="Conception du module cinematique complet d'un bras xArm : cinematique directe (DH) et inverse (analytique + numerique Damped Least Squares). Parser URDF custom, validation forward(inverse(p)) ≈ p, integration SDK xArm, simulation Gazebo en cours." data-en="Full kinematics module for xArm: forward kinematics (DH) and inverse (analytical + numerical Damped Least Squares). Custom URDF parser, forward(inverse(p)) ≈ p validation, xArm SDK integration, Gazebo simulation in progress.">Conception du module cinematique complet d'un bras xArm : cinematique directe (DH) et inverse (analytique + numerique Damped Least Squares). Parser URDF custom, validation forward(inverse(p)) ≈ p, integration SDK xArm.</p>
+        <div class="pst"><span class="ptag">Python</span><span class="ptag">DH Parameters</span><span class="ptag">URDF</span><span class="ptag">xArm SDK</span><span class="ptag">Gazebo</span></div>
+        <a href="LIEN_GITHUB_PROJET2" target="_blank" class="pglink">⌥ GitHub</a>
       </div>
     </div>
 
     <div class="pc rv">
-      <div class="pi">
-        <img src="Profile.jpeg" alt="Echo Lens - NASA Space Apps">
-      </div>
+      <div class="pi"><img src="project3.jpeg" alt="Echo Lens NASA Space Apps"><div class="pigrid"></div></div>
       <div class="pb">
         <div class="badge">NASA</div>
         <div class="pnum">03</div>
@@ -260,6 +261,19 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
         <div class="pctx">NASA Space Apps Challenge 2025</div>
         <p class="pdesc" data-fr="Interface de detection d'exoplanetes baptisee Echo Lens. Classification supervisee multiclasse du catalogue Kepler : exoplanete confirmee, faux positif, candidat rejete. Pipeline ML complet." data-en="Exoplanet detection interface named Echo Lens. Supervised multiclass classification of the Kepler catalog: confirmed exoplanet, false positive, rejected candidate. Full ML pipeline.">Interface de detection d'exoplanetes baptisee Echo Lens. Classification supervisee multiclasse du catalogue Kepler : exoplanete confirmee, faux positif, candidat rejete. Pipeline ML complet.</p>
         <div class="pst"><span class="ptag">Python</span><span class="ptag">scikit-learn</span><span class="ptag">Pandas</span><span class="ptag">Kepler Dataset</span></div>
+        <a href="LIEN_GITHUB_PROJET3" target="_blank" class="pglink">⌥ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pc rv">
+      <div class="pi"><img src="project4.jpeg" alt="Visualisation IK Analytique et Numerique"><div class="pigrid"></div></div>
+      <div class="pb">
+        <div class="pnum">04</div>
+        <h3 class="ptit" data-fr="IK Explorer - Cinematique Inverse Interactive" data-en="IK Explorer - Interactive Inverse Kinematics">IK Explorer - Cinematique Inverse Interactive</h3>
+        <div class="pctx" data-fr="Modelisation DH - Methodes analytique et numerique" data-en="DH Modelling - Analytical and numerical methods">Modelisation DH - Methodes analytique et numerique</div>
+        <p class="pdesc" data-fr="Derivation et implementation from scratch de deux solveurs IK bases sur les parametres DH : methode analytique (formules fermees) et methode numerique (Newton-Raphson / Jacobien). Visualisation 3D interactive sous matplotlib : curseurs de joints pour observer les variations en temps reel, saisie de position cible pour comparer comment chaque methode amene le robot a la position et visualiser les limites de chacune. Documentation detaillee du cheminement mathematique." data-en="From-scratch derivation and implementation of two IK solvers based on DH parameters: analytical method (closed-form) and numerical method (Newton-Raphson / Jacobian). Interactive 3D visualization with matplotlib: joint sliders to observe real-time variations, target position input to compare how each method reaches the pose and visualize their limits. Detailed documentation of the mathematical derivation.">Derivation et implementation from scratch de deux solveurs IK bases sur les parametres DH : methode analytique et numerique (Newton-Raphson / Jacobien). Visualisation 3D interactive matplotlib avec curseurs de joints et saisie de position cible pour comparer les deux methodes et observer leurs limites.</p>
+        <div class="pst"><span class="ptag">Python</span><span class="ptag">DH Parameters</span><span class="ptag">Matplotlib</span><span class="ptag">Newton-Raphson</span><span class="ptag">Jacobien</span></div>
+        <a href="LIEN_GITHUB_PROJET4" target="_blank" class="pglink">⌥ GitHub</a>
       </div>
     </div>
 
