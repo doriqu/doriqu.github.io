@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donald OKE - Eleve Ingenieur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+/* DARK THEME (défaut) */
+:root,[data-theme="dark"]{
+  --bg:#0c0a07;--bg2:#12100c;--bg3:#191410;--card:#1e1812;--card2:#252017;
+  --amb:#C8823A;--gold:#D4A854;--cream:#EDE0CC;--text:#E8D8C0;--mut:#8A7A68;--faint:#3A2E22;
+  --Hf:'Syne',sans-serif;--Mf:'Space Mono',monospace;--Bf:'DM Sans',sans-serif;
+}
+/* LIGHT THEME */
+[data-theme="light"]{
+  --bg:#F8F5F0;--bg2:#F1EDE6;--bg3:#E9E2D8;--card:#FFFFFF;--card2:#FAF7F3;
+  --amb:#9B5E1F;--gold:#B87333;--cream:#1A1208;--text:#2C1F0E;--mut:#6B5A44;--faint:#D4C4A8;
+  --Hf:'Syne',sans-serif;--Mf:'Space Mono',monospace;--Bf:'DM Sans',sans-serif;
+}
+[data-theme="light"] body{background:var(--bg)}
+[data-theme="light"] nav{background:rgba(248,245,240,.92)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--Bf);overflow-x:hidden;cursor:none}
+.cur{width:8px;height:8px;background:var(--amb);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s}
+.curR{width:30px;height:30px;border:1px solid var(--amb);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .18s;opacity:.55}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.5}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(12,10,7,.9);backdrop-filter:blur(18px);border-bottom:1px solid var(--faint)}
+.nl{font-family:var(--Mf);font-size:.78rem;color:var(--amb);letter-spacing:.14em}
+.nv{display:flex;gap:2.5rem;list-style:none;align-items:center}
+.nv a{font-family:var(--Mf);font-size:.68rem;color:var(--mut);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nv a:hover{color:var(--amb)}
+.lb{font-family:var(--Mf);font-size:.7rem;background:var(--faint);color:var(--amb);border:1px solid #5a3e22;padding:.28rem .8rem;border-radius:2px;cursor:none;letter-spacing:.1em;transition:all .2s}
+.lb:hover{background:var(--amb);color:var(--bg)}
+#hero{min-height:100vh;display:flex;align-items:center;padding:7rem 3rem 4rem;position:relative;overflow:hidden}
+.hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(200,130,58,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(200,130,58,.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%)}
+.hglow{position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(200,130,58,.09) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.hi{display:grid;grid-template-columns:260px 1fr;gap:5rem;align-items:center;position:relative;z-index:1;width:100%;max-width:1100px}
+.hpw{display:flex;flex-direction:column;align-items:center;gap:1.4rem}
+.hpf{width:210px;height:210px;border-radius:3px;overflow:hidden;border:1px solid var(--faint);position:relative;box-shadow:0 0 50px rgba(200,130,58,.13)}
+.hpf::after{content:'';position:absolute;inset:0;border:2px solid var(--amb);opacity:.25;pointer-events:none}
+.hpf img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(10%) contrast(1.06)}
+.hpn{font-family:var(--Hf);font-size:1rem;font-weight:700;color:var(--cream);text-align:center;letter-spacing:.03em;line-height:1.3}
+.hps{font-family:var(--Mf);font-size:.6rem;color:var(--amb);text-align:center;letter-spacing:.14em;text-transform:uppercase;margin-top:.2rem}
+.htag{font-family:var(--Mf);font-size:.7rem;color:var(--amb);letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.1rem;display:flex;align-items:center;gap:.8rem}
+.htag::before{content:'';display:block;width:34px;height:1px;background:var(--amb)}
+.hname{font-family:var(--Hf);font-size:clamp(2.6rem,5vw,5rem);font-weight:800;line-height:.95;letter-spacing:-.02em;color:var(--cream);margin-bottom:.7rem}
+.hname span{color:var(--amb)}
+.htitle{font-family:var(--Bf);font-size:.98rem;color:var(--mut);font-weight:300;margin-bottom:1.8rem}
+.hv{font-size:.98rem;color:var(--text);max-width:560px;line-height:1.9;margin-bottom:2.4rem;border-left:2px solid var(--amb);padding-left:1.2rem;font-weight:300}
+.hcta{display:flex;gap:.9rem;flex-wrap:wrap}
+.bp{font-family:var(--Mf);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.7rem;background:var(--amb);color:var(--bg);text-decoration:none;cursor:none;transition:all .2s;font-weight:700}
+.bp:hover{background:var(--gold);transform:translateY(-2px)}
+.bo{font-family:var(--Mf);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.7rem;background:transparent;color:var(--amb);text-decoration:none;border:1px solid #6a4020;cursor:none;transition:all .2s}
+.bo:hover{border-color:var(--amb);transform:translateY(-2px)}
+.hscr{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-family:var(--Mf);font-size:.58rem;color:var(--mut);letter-spacing:.2em;display:flex;flex-direction:column;align-items:center;gap:.4rem;animation:bnc 2.4s infinite}
+.hscr::after{content:'';width:1px;height:34px;background:linear-gradient(to bottom,var(--amb),transparent)}
+@keyframes bnc{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+section{padding:6rem 3rem;position:relative}
+.sl{font-family:var(--Mf);font-size:.66rem;color:var(--amb);letter-spacing:.24em;text-transform:uppercase;margin-bottom:.65rem;display:flex;align-items:center;gap:1rem}
+.sl::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--faint),transparent)}
+.st{font-family:var(--Hf);font-size:clamp(1.8rem,3.5vw,2.7rem);font-weight:800;color:var(--cream);margin-bottom:3rem;letter-spacing:-.02em}
+#about{background:var(--bg2)}
+.at p{color:var(--text);margin-bottom:1.2rem;font-size:1rem;font-weight:300;line-height:1.85;max-width:760px}
+.at p strong{color:var(--amb);font-weight:500}
+#skills{background:var(--bg)}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:1.1rem}
+.sk{background:var(--card);border:1px solid var(--faint);padding:1.5rem;transition:all .3s;position:relative;overflow:hidden}
+.sk::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--amb),transparent);transform:scaleX(0);transition:transform .3s}
+.sk:hover::after{transform:scaleX(1)}
+.sk:hover{border-color:#5a3e22;background:var(--card2)}
+.ski{font-size:1.35rem;margin-bottom:.7rem}
+.skt{font-family:var(--Hf);font-size:.88rem;font-weight:700;color:var(--cream);margin-bottom:.85rem;letter-spacing:.04em}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.tag{font-family:var(--Mf);font-size:.6rem;padding:.26rem .6rem;background:var(--faint);color:var(--amb);letter-spacing:.07em;border:1px solid transparent;transition:border-color .2s}
+.tag:hover{border-color:var(--amb)}
+#projects{background:var(--bg2)}
+.pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1.3rem}
+.pc{background:var(--card);border:1px solid var(--faint);overflow:hidden;transition:all .35s;position:relative}
+.pc:hover{border-color:#6a4020;transform:translateY(-5px);box-shadow:0 22px 55px rgba(0,0,0,.45),0 0 0 1px #6a4020}
+.pi{width:100%;height:200px;background:var(--bg3);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--faint);position:relative;overflow:hidden}
+.pi img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .4s ease;filter:brightness(.85)}
+.pc:hover .pi img{transform:scale(1.04);filter:brightness(1)}
+.pigrid{position:absolute;inset:0;background-image:linear-gradient(rgba(200,130,58,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(200,130,58,.025) 1px,transparent 1px);background-size:26px 26px}
+.pico{font-size:2.6rem;position:relative;z-index:1}
+.pb{padding:1.35rem}
+.pnum{font-family:var(--Mf);font-size:.6rem;color:var(--amb);letter-spacing:.2em;margin-bottom:.45rem}
+.ptit{font-family:var(--Hf);font-size:1.1rem;font-weight:700;color:var(--cream);margin-bottom:.35rem;letter-spacing:-.01em}
+.pctx{font-family:var(--Mf);font-size:.6rem;color:var(--mut);margin-bottom:.7rem;letter-spacing:.07em}
+.pdesc{font-size:.86rem;color:var(--mut);margin-bottom:1rem;line-height:1.65;font-weight:300}
+.pst{display:flex;flex-wrap:wrap;gap:.35rem}
+.ptag{font-family:var(--Mf);font-size:.57rem;padding:.2rem .5rem;background:rgba(200,130,58,.1);color:var(--amb);border:1px solid rgba(200,130,58,.22);letter-spacing:.07em}
+.badge{position:absolute;top:.85rem;right:.85rem;background:var(--amb);color:var(--bg);font-family:var(--Mf);font-size:.57rem;padding:.2rem .5rem;letter-spacing:.1em;font-weight:700;z-index:2}
+#other{background:var(--bg3)}
+.og{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.1rem}
+.oc{background:var(--card);border:1px solid var(--faint);overflow:hidden;transition:all .35s;position:relative}
+.oc:hover{border-color:#6a4020;transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.oc-img{width:100%;height:170px;object-fit:cover;display:block;filter:grayscale(15%) contrast(1.05) brightness(.9);transition:all .3s}
+.oc:hover .oc-img{filter:grayscale(0%) contrast(1.08) brightness(1);transform:scale(1.02)}
+.oc-body{padding:1.1rem}
+.otit{font-family:var(--Hf);font-size:.92rem;font-weight:700;color:var(--cream);margin-bottom:.3rem}
+.odesc{font-size:.8rem;color:var(--mut);line-height:1.6;font-weight:300;margin-bottom:.7rem}
+#contact{background:var(--bg);text-align:center}
+.ci{max-width:580px;margin:0 auto}
+.ci p{color:var(--mut);font-size:.98rem;font-weight:300;margin-bottom:2.3rem;line-height:1.8}
+.cemail{font-family:var(--Hf);font-size:clamp(1.3rem,2.5vw,1.9rem);font-weight:800;color:var(--amb);text-decoration:none;display:block;margin-bottom:1.8rem;transition:color .2s}
+.cemail:hover{color:var(--gold)}
+.cls{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center}
+.cl{display:flex;align-items:center;gap:.5rem;font-family:var(--Mf);font-size:.7rem;color:var(--mut);text-decoration:none;letter-spacing:.08em;padding:.6rem 1rem;border:1px solid var(--faint);transition:all .2s}
+.cl:hover{color:var(--amb);border-color:#6a4020}
+footer{background:var(--bg2);border-top:1px solid var(--faint);padding:1.3rem 3rem;display:flex;justify-content:space-between;align-items:center}
+footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.1em}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.rv.v{opacity:1;transform:translateY(0)}
+/* Photo dans un angle - texte autour */
+#hero .hi{display:grid;grid-template-columns:auto 1fr;gap:3.5rem;align-items:center}
+.hpf{
+  width:200px;height:200px;
+  border-radius:50%;overflow:hidden;flex-shrink:0;
+  align-self:flex-start;
+  margin-top:.5rem;
+  box-shadow:0 0 0 3px var(--amb),0 0 0 7px var(--faint),0 0 40px rgba(200,130,58,.15);
+  position:relative;
+}
+.hpf::after{content:'';position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--amb);opacity:.35;pointer-events:none}
+.hpf img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(8%) contrast(1.05)}
+/* Bouton thème */
+.tbtn{font-family:var(--Mf);font-size:.7rem;background:var(--faint);color:var(--amb);border:1px solid var(--amb);padding:.28rem .8rem;border-radius:2px;cursor:none;letter-spacing:.1em;transition:all .2s;margin-right:.5rem}
+.tbtn:hover{background:var(--amb);color:var(--bg)}
+/* Section engagements */
+#engagements{background:var(--bg3)}
+.eg{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.1rem}
+.ec{background:var(--card);border:1px solid var(--faint);border-left:3px solid var(--amb);padding:1.4rem;transition:all .3s}
+.ec:hover{background:var(--card2);transform:translateY(-3px)}
+.ec-role{font-family:var(--Mf);font-size:.6rem;color:var(--amb);letter-spacing:.16em;text-transform:uppercase;margin-bottom:.3rem;font-weight:700}
+.ec-org{font-family:var(--Hf);font-size:.95rem;font-weight:700;color:var(--cream);margin-bottom:.5rem}
+.ec-desc{font-size:.82rem;color:var(--mut);line-height:1.65;font-weight:300}
+@media(max-width:900px){#hero .hi{grid-template-columns:1fr;gap:2rem}.hpf{width:130px;height:130px;margin:0 auto}}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="curR" id="curR"></div>
+
+<nav>
+  <div class="nl">donald.oke</div>
+  <ul class="nv">
+    <li><a href="#about" data-fr="A propos" data-en="About">A propos</a></li>
+    <li><a href="#engagements" data-fr="Engagements" data-en="Involvement">Engagements</a></li>
+    <li><a href="#skills" data-fr="Competences" data-en="Skills">Competences</a></li>
+    <li><a href="#projects" data-fr="Projets" data-en="Projects">Projets</a></li>
+    <li><a href="#contact" data-fr="Contact" data-en="Contact">Contact</a></li>
+    <li><button class="tbtn" id="tbtn" onclick="toggleTheme()">☀ Light</button><button class="lb" id="lbtn" onclick="tl()">EN</button></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hgrid"></div>
+  <div class="hglow"></div>
+  <div class="hi">
+    <div class="hpf">
+      <img src="Profile.jpeg" alt="Donald OKE">
+    </div>
+    <div class="htext">
+      <div class="htag" data-fr="Genie Electrique - Benin" data-en="Electrical Engineering - Benin">Genie Electrique - Benin</div>
+      <h1 class="hname">Donald<br><span>OKE</span></h1>
+      <p class="htitle" data-fr="Systemes Embarques et Robotique " data-en="Embedded Systems and Robotics">Systemes Embarques et Robotique</p>
+      <p class="hv" data-fr="Je construis les briques technologiques des systemes de demain : la ou calcul, communication et monde physique fusionnent en un seul organisme coherent. Ma vision, des systemes autonomes, resilients, capables de se coordonner et de survivre sous adversite, au service de l'Afrique." data-en="I build the technological foundations of tomorrow's systems: where computation, communication and the physical world merge into one coherent organism. My vision, autonomous and resilient systems capable of coordinating and surviving under adversity, in service of Africa.">
+        Je construis les briques technologiques des systemes de demain : la ou calcul, communication et monde physique fusionnent en un seul organisme coherent. Ma vision, des systemes autonomes, resilients, capables de se coordonner et de survivre sous adversite, au service de l'Afrique.
+      </p>
+      <div class="hcta">
+        <a href="#projects" class="bp" data-fr="Voir mes projets" data-en="View my projects">Voir mes projets</a>
+        <a href="#contact" class="bo" data-fr="Me contacter" data-en="Contact me">Me contacter</a>
+      </div>
+    </div>
+  </div>
+  <div class="hscr" data-fr="scroll" data-en="scroll">scroll</div>
+</section>
+
+<section id="about">
+  <div class="sl" data-fr="01 - A propos" data-en="01 - About">01 - A propos</div>
+  <h2 class="st rv" data-fr="Qui suis-je ?" data-en="Who am I?">Qui suis-je ?</h2>
+  <div class="at rv">
+    <p data-fr="Etudiant ingenieur en 3e annee de Génie Electrique à l'<strong>EPAC</strong> (Universite d'Abomey-Calavi), specialise en systemes embarques et robotique. Ce qui me fascine profondement, c'est la question de la <strong>resilience des systemes multi-agents</strong> : comment des entites autonomes se coordonnent-elles ? Comment un systeme survit-il quand l'un de ses agents est compromis ?" data-en="3rd year engineering student at <strong>EPAC</strong> (University of Abomey-Calavi), specializing in embedded systems and robotics. What deeply fascinates me is the question of <strong>resilient multi-agent systems</strong>: how do autonomous entities coordinate? How does a system survive when one of its agents is compromised?">
+      Etudiant ingenieur en 3e annee de Génie Electrique à l'<strong>EPAC</strong> (Universite d'Abomey-Calavi), specialise en systemes embarques et robotique. Ce qui me fascine profondement, c'est la question de la <strong>resilience des systemes multi-agents</strong> : comment des entites autonomes se coordonnent-elles ? Comment un systeme survit-il quand l'un de ses agents est compromis ?
+    </p>
+    <p data-fr="Ces questions ne sont pas theoriques. Elles definissent ma trajectoire de recherche et ma vision a long terme : appliquer les <strong>systemes cyber-physiques</strong> aux defis critiques de l'Afrique, defense, transport, agriculture, sante." data-en="These questions are not theoretical. They define my research trajectory and long-term vision: applying <strong>cyber-physical systems</strong> to Africa's critical challenges, defense, transportation, agriculture, healthcare.">
+      Ces questions ne sont pas theoriques. Elles definissent ma trajectoire de recherche et ma vision a long terme : appliquer les <strong>systemes cyber-physiques</strong> aux defis critiques de l'Afrique, defense, transport, agriculture, sante.
+    </p>
+  </div>
+</section>
+
+<section id="engagements">
+  <div class="sl" data-fr="02 - Engagements" data-en="02 - Involvement">02 - Engagements</div>
+  <h2 class="st rv" data-fr="Associations &amp; Leadership" data-en="Associations &amp; Leadership">Associations &amp; Leadership</h2>
+  <div class="eg">
+    <div class="ec rv">
+      <div class="ec-role" data-fr="Membre actif" data-en="Active member">Membre actif</div>
+      <div class="ec-org">🚀 Sirius Space Association</div>
+      <p class="ec-desc" data-fr="Association dédiée à la vulgarisation et à la recherche spatiale. Participation à des projets autour de l'astronomie, l'exploration spatiale et les technologies embarquées appliquées au domaine spatial." data-en="Association dedicated to space outreach and research. Participating in projects around astronomy, space exploration and embedded technologies for the space domain.">Association dédiée à la vulgarisation et à la recherche spatiale. Participation à des projets autour de l'astronomie, l'exploration spatiale et les technologies embarquées appliquées au domaine spatial.</p>
+    </div>
+    <div class="ec rv">
+      <div class="ec-role" data-fr="Chef de club · Bénévolat" data-en="Club President · Volunteer">Chef de club · Bénévolat</div>
+      <div class="ec-org">💡 Club Informatique Industrielle — EPAC</div>
+      <p class="ec-desc" data-fr="Responsable du club d'informatique industrielle de l'École Polytechnique d'Abomey-Calavi. Animation d'ateliers pratiques, encadrement de membres juniors, organisation d'événements techniques." data-en="Head of the industrial computing club at EPAC. Running practical workshops, mentoring junior members, organizing technical events.">Responsable du club d'informatique industrielle de l'École Polytechnique d'Abomey-Calavi. Animation d'ateliers pratiques, encadrement de membres juniors, organisation d'événements techniques.</p>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="sl" data-fr="02 - Competences" data-en="02 - Skills">02 - Competences</div>
+  <h2 class="st rv" data-fr="Arsenal technique" data-en="Technical Arsenal">Arsenal technique</h2>
+  <div class="sg">
+    <div class="sk rv"><div class="ski">&#9889;</div><div class="skt" data-fr="Microcontroleurs" data-en="Microcontrollers">Microcontroleurs</div><div class="tags"><span class="tag">Arduino</span><span class="tag">ESP32</span><span class="tag">ESP8266</span></div></div>
+    <div class="sk rv"><div class="ski">&#128225;</div><div class="skt" data-fr="Protocoles" data-en="Protocols">Protocoles</div><div class="tags"><span class="tag">BLE</span><span class="tag">WiFi</span><span class="tag">LoRaWAN</span><span class="tag">I2C</span><span class="tag">SPI</span><span class="tag">UART</span></div></div>
+    <div class="sk rv"><div class="ski">&#128187;</div><div class="skt" data-fr="Programmation" data-en="Programming">Programmation</div><div class="tags"><span class="tag">C++</span><span class="tag">Python</span><span class="tag">MATLAB</span><span class="tag">Assembleur</span></div></div>
+    <div class="sk rv"><div class="ski">&#129302;</div><div class="skt" data-fr="Robotique" data-en="Robotics">Robotique</div><div class="tags"><span class="tag">ROS2</span><span class="tag">Gazebo</span><span class="tag">Cinematique IK/FK</span><span class="tag">Controle asservi</span></div></div>
+    <div class="sk rv"><div class="ski">&#129504;</div><div class="skt" data-fr="IA Embarquee" data-en="Embedded AI">IA Embarquee</div><div class="tags"><span class="tag">TinyML</span><span class="tag">Edge Impulse</span><span class="tag">scikit-learn</span></div></div>
+    <div class="sk rv"><div class="ski">&#128295;</div><div class="skt" data-fr="Outils" data-en="Tools">Outils</div><div class="tags"><span class="tag">Git / GitHub</span><span class="tag">Docker</span><span class="tag">Linux</span><span class="tag">Fusion 360</span><span class="tag">Proteus</span></div></div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="sl" data-fr="03 - Projets" data-en="03 - Projects">03 - Projets</div>
+  <h2 class="st rv" data-fr="Ce que j'ai construit" data-en="What I've built">Ce que j'ai construit</h2>
+  <div class="pg">
+
+    <div class="pc rv">
+      <div class="pi"><div class="pigrid"></div><div class="pico">&#129302;</div></div>
+      <div class="pb">
+        <div class="pnum">01</div>
+        <h3 class="ptit" data-fr="Path Tracking - Stanley Controller" data-en="Path Tracking - Stanley Controller">Path Tracking - Stanley Controller</h3>
+        <div class="pctx" data-fr="Simulation ROS2 / Docker" data-en="ROS2 / Docker Simulation">Simulation ROS2 / Docker</div>
+        <p class="pdesc" data-fr="Package ROS2 permettant a un robot mobile de suivre un humain en temps reel via le controleur Stanley. Containerisation complete sous Docker Ubuntu, pull request soumis sur depot collaboratif." data-en="ROS2 package enabling a mobile robot to follow a human in real time using the Stanley controller. Full containerization under Docker Ubuntu, pull request submitted on collaborative repository.">Package ROS2 permettant a un robot mobile de suivre un humain en temps reel via le controleur Stanley. Containerisation complete sous Docker Ubuntu, pull request soumis sur depot collaboratif.</p>
+        <div class="pst"><span class="ptag">ROS2</span><span class="ptag">Python</span><span class="ptag">Docker</span><span class="ptag">GitHub</span></div>
+      </div>
+    </div>
+
+    <div class="pc rv">
+      <div class="pi"><div class="pigrid"></div><div class="pico">&#129470;</div></div>
+      <div class="pb">
+        <div class="pnum">02</div>
+        <h3 class="ptit" data-fr="Bras Robotique - Solveur IK" data-en="Robotic Arm - IK Solver">Bras Robotique - Solveur IK</h3>
+        <div class="pctx" data-fr="Projet equipe - Bras xArm - Pick and Place de cubes" data-en="Team project - xArm - Cube Pick and Place">Projet equipe - Bras xArm - Pick and Place de cubes</div>
+        <p class="pdesc" data-fr="Solveur de cinematique inverse par Damped Least Squares construit a partir du Jacobien geometrique. Parser URDF custom, integration sur bras physique xArm. Simulation Gazebo en cours." data-en="Inverse kinematics solver using Damped Least Squares built from the geometric Jacobian. Custom URDF parser, integration on physical xArm. Gazebo simulation in progress.">Solveur de cinematique inverse par Damped Least Squares construit a partir du Jacobien geometrique. Parser URDF custom, integration sur bras physique xArm. Simulation Gazebo en cours.</p>
+        <div class="pst"><span class="ptag">Python</span><span class="ptag">URDF</span><span class="ptag">Gazebo</span><span class="ptag">xArm</span></div>
+      </div>
+    </div>
+
+    <div class="pc rv">
+      <div class="pi">
+        <img src="Profile.jpeg" alt="Echo Lens - NASA Space Apps">
+      </div>
+      <div class="pb">
+        <div class="badge">NASA</div>
+        <div class="pnum">03</div>
+        <h3 class="ptit">Echo Lens - Hunting for Exoplanets</h3>
+        <div class="pctx">NASA Space Apps Challenge 2025</div>
+        <p class="pdesc" data-fr="Interface de detection d'exoplanetes baptisee Echo Lens. Classification supervisee multiclasse du catalogue Kepler : exoplanete confirmee, faux positif, candidat rejete. Pipeline ML complet." data-en="Exoplanet detection interface named Echo Lens. Supervised multiclass classification of the Kepler catalog: confirmed exoplanet, false positive, rejected candidate. Full ML pipeline.">Interface de detection d'exoplanetes baptisee Echo Lens. Classification supervisee multiclasse du catalogue Kepler : exoplanete confirmee, faux positif, candidat rejete. Pipeline ML complet.</p>
+        <div class="pst"><span class="ptag">Python</span><span class="ptag">scikit-learn</span><span class="ptag">Pandas</span><span class="ptag">Kepler Dataset</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="other">
+  <div class="sl" data-fr="03b - Autres projets" data-en="03b - Other projects">03b - Autres projets</div>
+  <h2 class="st rv" data-fr="Projets secondaires" data-en="Side projects">Projets secondaires</h2>
+  <div class="og">
+    <div class="oc rv">
+      <img class="oc-img" src="Profile.jpeg" alt="Console ESP32">
+      <div class="oc-body">
+        <div class="otit" data-fr="Console 9 jeux ESP32" data-en="ESP32 9-Game Console">Console 9 jeux ESP32</div>
+        <p class="odesc" data-fr="Console multi-jeux construite en 24h. 1er Prix Arduino Days 2026, equipe HEPHAESTUS." data-en="Multi-game console built in 24h. 1st Prize Arduino Days 2026, team HEPHAESTUS.">Console multi-jeux construite en 24h. 1er Prix Arduino Days 2026, equipe HEPHAESTUS.</p>
+        <div class="tags"><span class="tag">ESP32</span><span class="tag">TinyML</span><span class="tag">Edge Impulse</span></div>
+      </div>
+    </div>
+    <div class="oc rv">
+      <img class="oc-img" src="Profile.jpeg" alt="Vehicule Robotique">
+      <div class="oc-body">
+        <div class="otit" data-fr="Vehicule Robotique Telecammande" data-en="Remote-Controlled Robot">Vehicule Robotique Telecammande</div>
+        <p class="odesc" data-fr="Robot mobile a commande sans fil. Architecture materielle complete, firmware C++ embarque temps reel." data-en="Wireless mobile robot. Full hardware architecture, real-time embedded C++ firmware.">Robot mobile a commande sans fil. Architecture materielle complete, firmware C++ embarque temps reel.</p>
+        <div class="tags"><span class="tag">C++</span><span class="tag">Arduino</span><span class="tag">Bluetooth HC-05</span></div>
+      </div>
+    </div>
+    <div class="oc rv">
+      <img class="oc-img" src="Profile.jpeg" alt="Bras Hydraulique">
+      <div class="oc-body">
+        <div class="otit" data-fr="Bras Hydraulique en Carton" data-en="Cardboard Hydraulic Arm">Bras Hydraulique en Carton</div>
+        <p class="odesc" data-fr="Bras mecanique hydraulique a deux outils : gripper + benne godet. Conception et assemblage physique complet." data-en="Two-tool hydraulic arm: gripper + bucket scoop. Full physical design and assembly.">Bras mecanique hydraulique a deux outils : gripper + benne godet. Conception et assemblage physique complet.</p>
+        <div class="tags"><span class="tag">Mecanique</span><span class="tag">Hydraulique</span><span class="tag">Prototypage</span></div>
+      </div>
+    </div>
+    <div class="oc rv">
+      <img class="oc-img" src="Profile.jpeg" alt="Radar Arduino">
+      <div class="oc-body">
+        <div class="otit" data-fr="Radar de Surveillance" data-en="Surveillance Radar">Radar de Surveillance</div>
+        <p class="odesc" data-fr="Radar de detection perimetrique par capteur ultrasonique avec visualisation temps reel. 13 cibles detectees simultanement." data-en="Perimetric detection radar with real-time visualization. 13 targets detected simultaneously.">Radar de detection perimetrique par capteur ultrasonique avec visualisation temps reel. 13 cibles detectees simultanement.</p>
+        <div class="tags"><span class="tag">Arduino</span><span class="tag">Ultrasonique</span><span class="tag">Processing</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="ci">
+    <div class="sl" style="justify-content:center" data-fr="04 - Contact" data-en="04 - Contact">04 - Contact</div>
+    <h2 class="st rv" data-fr="Travaillons ensemble" data-en="Let's work together">Travaillons ensemble</h2>
+    <p class="rv" data-fr="Etudiant ingenieur disponible pour des collaborations, stages et projets de recherche." data-en="Engineering student available for collaborations, internships and research projects.">Etudiant ingenieur disponible pour des collaborations, stages et projets de recherche.</p>
+    <a href="mailto:okedonald790@gmail.com" class="cemail rv">okedonald790@gmail.com</a>
+    <div class="cls rv">
+      <a href="https://github.com/doriqu" target="_blank" class="cl"><span>&#8997;</span> GitHub</a>
+      <a href="https://www.linkedin.com/in/donald-oke-343369331" target="_blank" class="cl"><span>&#9672;</span> LinkedIn</a>
+      <a href="tel:+2290190237379" class="cl"><span>&#9678;</span> +229 01 90 23 73 79</a>
+      <span class="cl"><span>&#9679;</span> <span data-fr="Permis B" data-en="Driving License B">Permis B</span></span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>2026 - OKE Donald Riquelme Djidjoho</p>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function anim(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(anim)})();
+document.querySelectorAll('a,button,.pc,.sk,.oc').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.5)';curR.style.transform='translate(-50%,-50%) scale(1.5)';curR.style.borderColor='var(--gold)'});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';curR.style.transform='translate(-50%,-50%) scale(1)';curR.style.borderColor='var(--amb)'});
+});
+const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('v'),i*70);obs.unobserve(e.target)}});},{threshold:.1});
+document.querySelectorAll('.rv').forEach(r=>obs.observe(r));
+let isDark=true;
+function toggleTheme(){
+  isDark=!isDark;
+  document.documentElement.setAttribute('data-theme',isDark?'dark':'light');
+  document.getElementById('tbtn').textContent=isDark?'☀ Light':'🌙 Dark';
+}
+
+function tl(){
+  lang=lang==='fr'?'en':'fr';
+  document.getElementById('lbtn').textContent=lang==='fr'?'EN':'FR';
+  document.documentElement.lang=lang;
+  document.querySelectorAll('[data-fr]').forEach(el=>{
+    const t=el.getAttribute('data-'+lang);
+    if(t)el.innerHTML=t;
+  });
+}
+</script>
+</body>
+</html>
