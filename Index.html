@@ -400,7 +400,6 @@ document.querySelectorAll('a,button,.pc,.sk,.oc').forEach(el=>{
 });
 const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('v'),i*70);obs.unobserve(e.target)}});},{threshold:.1});
 document.querySelectorAll('.rv').forEach(r=>obs.observe(r));
-}
 
 function tl(){
   lang=lang==='fr'?'en':'fr';
