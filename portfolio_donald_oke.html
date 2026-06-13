@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donald OKE — Ingénieur Systèmes Embarqués</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   TOKENS — DARK THEME (défaut)
+═══════════════════════════════════════════ */
+:root,
+[data-theme="dark"] {
+  --bg:      #0D0F14;
+  --bg2:     #111318;
+  --bg3:     #161923;
+  --card:    #1A1D26;
+  --card2:   #1F2330;
+  --border:  #252A38;
+  --border2: #2E3448;
+  --acc:     #00C9A7;      /* cyan-vert pro */
+  --acc2:    #00A88C;
+  --acc-dim: rgba(0,201,167,.12);
+  --acc-dim2:rgba(0,201,167,.06);
+  --text:    #E8ECF4;
+  --text2:   #9AA3B8;
+  --text3:   #5C6580;
+  --cream:   #FFFFFF;
+  --Hf: 'Syne', sans-serif;
+  --Mf: 'JetBrains Mono', monospace;
+  --Bf: 'Inter', sans-serif;
+}
+
+/* ═══════════════════════════════════════════
+   TOKENS — LIGHT THEME
+═══════════════════════════════════════════ */
+[data-theme="light"] {
+  --bg:      #F8FAFC;
+  --bg2:     #F1F5F9;
+  --bg3:     #E9EEF5;
+  --card:    #FFFFFF;
+  --card2:   #F8FAFC;
+  --border:  #DDE3F0;
+  --border2: #C8D0E4;
+  --acc:     #1A56DB;
+  --acc2:    #1345BF;
+  --acc-dim: rgba(26,86,219,.10);
+  --acc-dim2:rgba(26,86,219,.05);
+  --text:    #1A2035;
+  --text2:   #4A5578;
+  --text3:   #8A94B0;
+  --cream:   #0D0F14;
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--Bf);
+  overflow-x:hidden;
+  cursor:none;
+  transition:background .3s, color .3s;
+}
+
+/* Grain texture subtil */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.018'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;
+}
+
+/* ═══════════════════════════════════════════
+   CURSEUR CUSTOM
+═══════════════════════════════════════════ */
+.cur{
+  width:7px;height:7px;
+  background:var(--acc);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:transform .08s;
+}
+.curR{
+  width:28px;height:28px;
+  border:1.5px solid var(--acc);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:all .15s;
+  opacity:.5;
+}
+body:hover .cur{opacity:1}
+
+/* ═══════════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem 3rem;
+  background:rgba(13,15,20,.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:background .3s, border-color .3s;
+}
+[data-theme="light"] nav{
+  background:rgba(248,250,252,.9);
+}
+.nl{
+  font-family:var(--Mf);
+  font-size:.78rem;
+  color:var(--acc);
+  letter-spacing:.16em;
+  font-weight:500;
+}
+.nv{
+  display:flex;gap:2rem;
+  list-style:none;align-items:center;
+}
+.nv a{
+  font-family:var(--Mf);
+  font-size:.68rem;
+  color:var(--text2);
+  text-decoration:none;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  transition:color .2s;
+}
+.nv a:hover{color:var(--acc)}
+
+/* Boutons nav (langue + thème) */
+.nav-controls{display:flex;gap:.5rem;align-items:center}
+.nav-btn{
+  font-family:var(--Mf);
+  font-size:.68rem;
+  background:var(--border);
+  color:var(--text2);
+  border:1px solid var(--border2);
+  padding:.28rem .65rem;
+  border-radius:4px;
+  cursor:none;
+  letter-spacing:.08em;
+  transition:all .2s;
+  display:flex;align-items:center;gap:.35rem;
+}
+.nav-btn:hover{background:var(--acc-dim);color:var(--acc);border-color:var(--acc)}
+.nav-btn .icon{font-size:.8rem;line-height:1}
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+#hero{
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding:7rem 3rem 4rem;
+  position:relative;overflow:hidden;
+}
+
+/* Grille déco */
+.hgrid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--acc-dim2) 1px,transparent 1px),
+    linear-gradient(90deg,var(--acc-dim2) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 100%);
+}
+.hglow{
+  position:absolute;
+  width:600px;height:600px;
+  background:radial-gradient(circle,var(--acc-dim) 0%,transparent 65%);
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+
+/* Layout hero */
+.hi{
+  display:flex;
+  align-items:center;
+  gap:5rem;
+  position:relative;z-index:1;
+  width:100%;max-width:1100px;
+}
+
+/* === PHOTO RONDE === */
+.hphoto-wrap{
+  flex-shrink:0;
+  display:flex;flex-direction:column;
+  align-items:center;gap:1rem;
+}
+.hphoto-ring{
+  position:relative;
+  width:170px;height:170px;
+}
+/* Anneau animé */
+.hphoto-ring::before{
+  content:'';
+  position:absolute;inset:-3px;
+  border-radius:50%;
+  background:conic-gradient(var(--acc) 0deg, var(--acc2) 120deg, transparent 200deg, transparent 360deg);
+  animation:ring-spin 4s linear infinite;
+  z-index:0;
+}
+.hphoto-ring::after{
+  content:'';
+  position:absolute;inset:2px;
+  background:var(--bg);
+  border-radius:50%;
+  z-index:1;
+}
+@keyframes ring-spin{to{transform:rotate(360deg)}}
+.hphoto-img{
+  position:absolute;inset:4px;
+  border-radius:50%;
+  overflow:hidden;
+  z-index:2;
+}
+.hphoto-img img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center top;
+  filter:contrast(1.05);
+}
+
+/* Nom + titre sous la photo */
+.hphoto-name{
+  font-family:var(--Hf);
+  font-size:.95rem;
+  font-weight:800;
+  color:var(--cream);
+  text-align:center;
+  letter-spacing:.02em;
+}
+.hphoto-role{
+  font-family:var(--Mf);
+  font-size:.58rem;
+  color:var(--acc);
+  text-align:center;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  margin-top:.15rem;
+}
+
+/* === TEXTE HERO === */
+.htext{flex:1}
+.htag{
+  font-family:var(--Mf);
+  font-size:.66rem;
+  color:var(--acc);
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  margin-bottom:.9rem;
+  display:flex;align-items:center;gap:.75rem;
+}
+.htag::before{
+  content:'';
+  display:block;width:28px;height:1px;
+  background:var(--acc);
+}
+.hname{
+  font-family:var(--Hf);
+  font-size:clamp(2.4rem,4.5vw,4.6rem);
+  font-weight:800;
+  line-height:.92;
+  letter-spacing:-.03em;
+  color:var(--cream);
+  margin-bottom:.6rem;
+}
+.hname span{color:var(--acc)}
+.htitle{
+  font-size:.92rem;
+  color:var(--text2);
+  font-weight:300;
+  margin-bottom:1.6rem;
+  letter-spacing:.02em;
+}
+
+/* Tagline principale — 1 phrase forte */
+.htagline{
+  font-size:1.05rem;
+  color:var(--text);
+  max-width:540px;
+  line-height:1.85;
+  margin-bottom:2rem;
+  border-left:2px solid var(--acc);
+  padding-left:1.1rem;
+  font-weight:300;
+}
+
+/* Stats rapides */
+.hstats{
+  display:flex;gap:2rem;
+  margin-bottom:2rem;
+}
+.hstat-item{display:flex;flex-direction:column;gap:.15rem}
+.hstat-num{
+  font-family:var(--Mf);
+  font-size:1.4rem;
+  font-weight:600;
+  color:var(--acc);
+  line-height:1;
+}
+.hstat-label{
+  font-size:.7rem;
+  color:var(--text3);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
+/* CTA */
+.hcta{display:flex;gap:.8rem;flex-wrap:wrap}
+.bp{
+  font-family:var(--Mf);
+  font-size:.72rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  padding:.7rem 1.6rem;
+  background:var(--acc);
+  color:#0D0F14;
+  text-decoration:none;
+  cursor:none;
+  transition:all .2s;
+  font-weight:600;
+  border-radius:3px;
+}
+.bp:hover{background:var(--acc2);transform:translateY(-2px)}
+.bo{
+  font-family:var(--Mf);
+  font-size:.72rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  padding:.7rem 1.6rem;
+  background:transparent;
+  color:var(--acc);
+  text-decoration:none;
+  border:1px solid var(--border2);
+  cursor:none;
+  transition:all .2s;
+  border-radius:3px;
+}
+.bo:hover{border-color:var(--acc);background:var(--acc-dim);transform:translateY(-2px)}
+
+/* Scroll indicator */
+.hscr{
+  position:absolute;bottom:2rem;left:50%;
+  transform:translateX(-50%);
+  font-family:var(--Mf);
+  font-size:.55rem;
+  color:var(--text3);
+  letter-spacing:.2em;
+  display:flex;flex-direction:column;align-items:center;gap:.4rem;
+  animation:bnc 2.5s infinite;
+}
+.hscr::after{
+  content:'';
+  width:1px;height:32px;
+  background:linear-gradient(to bottom,var(--acc),transparent);
+}
+@keyframes bnc{
+  0%,100%{transform:translateX(-50%) translateY(0)}
+  50%{transform:translateX(-50%) translateY(6px)}
+}
+
+/* ═══════════════════════════════════════════
+   SECTIONS COMMUNES
+═══════════════════════════════════════════ */
+section{padding:6rem 3rem;position:relative}
+.sl{
+  font-family:var(--Mf);
+  font-size:.62rem;
+  color:var(--acc);
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  margin-bottom:.6rem;
+  display:flex;align-items:center;gap:.9rem;
+}
+.sl::after{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(to right,var(--border),transparent);
+}
+.st{
+  font-family:var(--Hf);
+  font-size:clamp(1.7rem,3vw,2.5rem);
+  font-weight:800;
+  color:var(--cream);
+  margin-bottom:2.5rem;
+  letter-spacing:-.02em;
+}
+
+/* ═══════════════════════════════════════════
+   ABOUT — Réécrit
+═══════════════════════════════════════════ */
+#about{background:var(--bg2)}
+
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4rem;
+  align-items:start;
+}
+
+.about-text p{
+  color:var(--text);
+  font-size:.97rem;
+  font-weight:300;
+  line-height:1.9;
+  margin-bottom:1.2rem;
+}
+.about-text p strong{color:var(--acc);font-weight:500}
+
+/* Valeurs / traits */
+.about-traits{
+  display:flex;flex-direction:column;gap:.85rem;
+}
+.trait{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-left:3px solid var(--acc);
+  padding:1rem 1.2rem;
+  border-radius:4px;
+  transition:background .2s, border-color .2s;
+}
+.trait:hover{background:var(--card2);border-color:var(--border2)}
+.trait-title{
+  font-family:var(--Mf);
+  font-size:.72rem;
+  font-weight:600;
+  color:var(--acc);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  margin-bottom:.3rem;
+}
+.trait-desc{
+  font-size:.88rem;
+  color:var(--text2);
+  line-height:1.6;
+}
+
+/* ═══════════════════════════════════════════
+   ENGAGEMENTS
+═══════════════════════════════════════════ */
+#engagements{background:var(--bg)}
+.eng-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1rem;
+}
+.eng-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:1.4rem 1.5rem;
+  display:flex;gap:1.1rem;
+  align-items:flex-start;
+  transition:all .25s;
+  position:relative;
+  overflow:hidden;
+}
+.eng-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,var(--acc),transparent);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .3s;
+}
+.eng-card:hover{border-color:var(--border2);transform:translateY(-3px);background:var(--card2)}
+.eng-card:hover::before{transform:scaleX(1)}
+.eng-icon{
+  font-size:1.6rem;flex-shrink:0;
+  width:42px;height:42px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--acc-dim);
+  border-radius:8px;
+}
+.eng-body{flex:1}
+.eng-role{
+  font-family:var(--Mf);
+  font-size:.62rem;
+  color:var(--acc);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-weight:600;
+  margin-bottom:.22rem;
+}
+.eng-org{
+  font-family:var(--Hf);
+  font-size:.97rem;
+  font-weight:700;
+  color:var(--cream);
+  margin-bottom:.3rem;
+  letter-spacing:-.01em;
+}
+.eng-desc{
+  font-size:.82rem;
+  color:var(--text2);
+  line-height:1.6;
+  font-weight:300;
+}
+.eng-badge{
+  font-family:var(--Mf);
+  font-size:.55rem;
+  padding:.15rem .45rem;
+  background:var(--acc-dim);
+  color:var(--acc);
+  border:1px solid rgba(0,201,167,.25);
+  border-radius:3px;
+  margin-top:.5rem;
+  display:inline-block;
+  letter-spacing:.08em;
+}
+[data-theme="light"] .eng-badge{border-color:rgba(26,86,219,.25)}
+
+/* ═══════════════════════════════════════════
+   SKILLS
+═══════════════════════════════════════════ */
+#skills{background:var(--bg2)}
+.sg{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1rem;
+}
+.sk{
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:1.5rem;
+  border-radius:6px;
+  transition:all .3s;
+  position:relative;overflow:hidden;
+}
+.sk::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,transparent,var(--acc),transparent);
+  transform:scaleX(0);
+  transition:transform .3s;
+}
+.sk:hover::after{transform:scaleX(1)}
+.sk:hover{border-color:var(--border2);background:var(--card2);transform:translateY(-3px)}
+.ski{font-size:1.3rem;margin-bottom:.6rem}
+.skt{
+  font-family:var(--Hf);
+  font-size:.84rem;
+  font-weight:700;
+  color:var(--cream);
+  margin-bottom:.8rem;
+  letter-spacing:.03em;
+}
+.tags{display:flex;flex-wrap:wrap;gap:.35rem}
+.tag{
+  font-family:var(--Mf);
+  font-size:.58rem;
+  padding:.22rem .55rem;
+  background:var(--acc-dim);
+  color:var(--acc);
+  letter-spacing:.07em;
+  border-radius:3px;
+  border:1px solid transparent;
+  transition:border-color .2s;
+}
+.tag:hover{border-color:var(--acc)}
+
+/* ═══════════════════════════════════════════
+   PROJETS
+═══════════════════════════════════════════ */
+#projects{background:var(--bg2)}
+.pg{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:1.2rem;
+}
+.pc{
+  background:var(--card);
+  border:1px solid var(--border);
+  overflow:hidden;
+  border-radius:8px;
+  transition:all .35s;
+  position:relative;
+}
+.pc:hover{
+  border-color:var(--acc);
+  transform:translateY(-5px);
+  box-shadow:0 20px 50px rgba(0,0,0,.35),0 0 0 1px var(--acc);
+}
+.pi{
+  width:100%;height:195px;
+  background:var(--bg3);
+  display:flex;align-items:center;justify-content:center;
+  border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.pi img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:top center;
+  transition:transform .4s ease,filter .4s;
+  filter:brightness(.8) saturate(.9);
+}
+.pc:hover .pi img{transform:scale(1.04);filter:brightness(1) saturate(1)}
+.pigrid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--acc-dim2) 1px,transparent 1px),
+    linear-gradient(90deg,var(--acc-dim2) 1px,transparent 1px);
+  background-size:24px 24px;
+}
+.pico{font-size:2.4rem;position:relative;z-index:1}
+.pb{padding:1.3rem}
+.pnum{
+  font-family:var(--Mf);
+  font-size:.58rem;
+  color:var(--acc);
+  letter-spacing:.22em;
+  margin-bottom:.4rem;
+}
+.ptit{
+  font-family:var(--Hf);
+  font-size:1.05rem;
+  font-weight:700;
+  color:var(--cream);
+  margin-bottom:.3rem;
+  letter-spacing:-.01em;
+}
+.pctx{
+  font-family:var(--Mf);
+  font-size:.58rem;
+  color:var(--text3);
+  margin-bottom:.65rem;
+  letter-spacing:.07em;
+}
+.pdesc{
+  font-size:.84rem;
+  color:var(--text2);
+  margin-bottom:.9rem;
+  line-height:1.6;
+  font-weight:300;
+}
+.pst{display:flex;flex-wrap:wrap;gap:.3rem}
+.ptag{
+  font-family:var(--Mf);
+  font-size:.56rem;
+  padding:.18rem .48rem;
+  background:var(--acc-dim);
+  color:var(--acc);
+  border:1px solid rgba(0,201,167,.2);
+  letter-spacing:.07em;
+  border-radius:3px;
+}
+[data-theme="light"] .ptag{border-color:rgba(26,86,219,.25)}
+.badge{
+  position:absolute;top:.8rem;right:.8rem;
+  background:var(--acc);
+  color:#0D0F14;
+  font-family:var(--Mf);
+  font-size:.55rem;
+  padding:.18rem .48rem;
+  letter-spacing:.1em;
+  font-weight:700;
+  z-index:2;
+  border-radius:3px;
+}
+
+/* ═══════════════════════════════════════════
+   AUTRES PROJETS
+═══════════════════════════════════════════ */
+#other{background:var(--bg3)}
+.og{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(235px,1fr));
+  gap:1rem;
+}
+.oc{
+  background:var(--card);
+  border:1px solid var(--border);
+  overflow:hidden;
+  border-radius:6px;
+  transition:all .35s;
+}
+.oc:hover{
+  border-color:var(--border2);
+  transform:translateY(-4px);
+  box-shadow:0 14px 35px rgba(0,0,0,.3);
+}
+.oc-img{
+  width:100%;height:165px;
+  object-fit:cover;display:block;
+  filter:grayscale(10%) contrast(1.04) brightness(.88);
+  transition:all .3s;
+}
+.oc:hover .oc-img{filter:grayscale(0%) contrast(1.06) brightness(1);transform:scale(1.02)}
+.oc-body{padding:1.05rem}
+.otit{
+  font-family:var(--Hf);
+  font-size:.9rem;
+  font-weight:700;
+  color:var(--cream);
+  margin-bottom:.28rem;
+}
+.odesc{
+  font-size:.78rem;
+  color:var(--text2);
+  line-height:1.55;
+  font-weight:300;
+  margin-bottom:.6rem;
+}
+
+/* ═══════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════ */
+#contact{background:var(--bg);text-align:center}
+.ci{max-width:560px;margin:0 auto}
+.ci p{
+  color:var(--text2);
+  font-size:.95rem;
+  font-weight:300;
+  margin-bottom:2rem;
+  line-height:1.8;
+}
+.cemail{
+  font-family:var(--Hf);
+  font-size:clamp(1.2rem,2.3vw,1.8rem);
+  font-weight:800;
+  color:var(--acc);
+  text-decoration:none;
+  display:block;
+  margin-bottom:1.6rem;
+  transition:color .2s,opacity .2s;
+}
+.cemail:hover{opacity:.75}
+.cls{
+  display:flex;flex-wrap:wrap;gap:.7rem;
+  justify-content:center;
+}
+.cl{
+  display:flex;align-items:center;gap:.45rem;
+  font-family:var(--Mf);
+  font-size:.68rem;
+  color:var(--text2);
+  text-decoration:none;
+  letter-spacing:.08em;
+  padding:.55rem .95rem;
+  border:1px solid var(--border);
+  border-radius:4px;
+  transition:all .2s;
+}
+.cl:hover{color:var(--acc);border-color:var(--acc);background:var(--acc-dim)}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer{
+  background:var(--bg2);
+  border-top:1px solid var(--border);
+  padding:1.2rem 3rem;
+  display:flex;justify-content:space-between;align-items:center;
+}
+footer p{
+  font-family:var(--Mf);
+  font-size:.58rem;
+  color:var(--text3);
+  letter-spacing:.1em;
+}
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS SCROLL
+═══════════════════════════════════════════ */
+.rv{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .65s ease,transform .65s ease;
+}
+.rv.v{opacity:1;transform:translateY(0)}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media(max-width:900px){
+  .hi{flex-direction:column;gap:2.5rem;text-align:center}
+  .htag{justify-content:center}
+  .hcta{justify-content:center}
+  .hstats{justify-content:center}
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
+}
+@media(max-width:640px){
+  nav{padding:.9rem 1.5rem}
+  .nv{display:none}
+  section{padding:4rem 1.5rem}
+  #hero{padding:6rem 1.5rem 3rem}
+  footer{flex-direction:column;gap:.4rem;text-align:center}
+}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="curR" id="curR"></div>
+
+<!-- ════════ NAVBAR ════════ -->
+<nav>
+  <div class="nl">donald.oke</div>
+  <ul class="nv">
+    <li><a href="#about" data-fr="À propos" data-en="About">À propos</a></li>
+    <li><a href="#engagements" data-fr="Engagements" data-en="Involvement">Engagements</a></li>
+    <li><a href="#skills" data-fr="Compétences" data-en="Skills">Compétences</a></li>
+    <li><a href="#projects" data-fr="Projets" data-en="Projects">Projets</a></li>
+    <li><a href="#contact" data-fr="Contact" data-en="Contact">Contact</a></li>
+  </ul>
+  <div class="nav-controls">
+    <button class="nav-btn" id="themebtn" onclick="toggleTheme()" title="Changer le thème">
+      <span class="icon" id="themeicon">☀️</span>
+      <span id="themelabel">Light</span>
+    </button>
+    <button class="nav-btn" id="lbtn" onclick="tl()">EN</button>
+  </div>
+</nav>
+
+<!-- ════════ HERO ════════ -->
+<section id="hero">
+  <div class="hgrid"></div>
+  <div class="hglow"></div>
+  <div class="hi">
+
+    <!-- Photo ronde -->
+    <div class="hphoto-wrap">
+      <div class="hphoto-ring">
+        <div class="hphoto-img">
+          <img src="Profile.jpeg" alt="Donald OKE">
+        </div>
+      </div>
+      <div class="hphoto-name">Donald Riquelme D. OKE</div>
+      <div class="hphoto-role" data-fr="Élève Ingénieur · EPAC" data-en="Engineering Student · EPAC">Élève Ingénieur · EPAC</div>
+    </div>
+
+    <!-- Texte -->
+    <div class="htext">
+      <div class="htag" data-fr="Génie Électrique — Bénin" data-en="Electrical Engineering — Benin">Génie Électrique — Bénin</div>
+      <h1 class="hname">Donald<br><span>OKE</span></h1>
+      <p class="htitle" data-fr="Systèmes Embarqués & Robotique" data-en="Embedded Systems & Robotics">Systèmes Embarqués &amp; Robotique</p>
+
+      <p class="htagline" data-fr="Je construis les briques technologiques des systèmes de demain : là où calcul, communication et monde physique fusionnent. Ma vision : des systèmes autonomes et résilients, au service de l'Afrique." data-en="I build the technological foundations of tomorrow's systems: where computation, communication and the physical world merge. My vision: autonomous, resilient systems in service of Africa.">
+        Je construis les briques technologiques des systèmes de demain : là où calcul, communication et monde physique fusionnent. Ma vision : des systèmes autonomes et résilients, au service de l'Afrique.
+      </p>
+
+      <!-- Stats -->
+      <div class="hstats">
+        <div class="hstat-item">
+          <span class="hstat-num">3+</span>
+          <span class="hstat-label" data-fr="Projets hardware" data-en="Hardware projects">Projets hardware</span>
+        </div>
+        <div class="hstat-item">
+          <span class="hstat-num">🏆</span>
+          <span class="hstat-label" data-fr="1er Prix Arduino Days 2026" data-en="1st Prize Arduino Days 2026">1er Prix Arduino 2026</span>
+        </div>
+        <div class="hstat-item">
+          <span class="hstat-num">NASA</span>
+          <span class="hstat-label" data-fr="Space Apps 2025" data-en="Space Apps 2025">Space Apps 2025</span>
+        </div>
+        <div class="hstat-item">
+          <span class="hstat-num">🚀</span>
+          <span class="hstat-label" data-fr="Sirius Space" data-en="Sirius Space">Sirius Space</span>
+        </div>
+      </div>
+
+      <div class="hcta">
+        <a href="#projects" class="bp" data-fr="Voir mes projets" data-en="View my projects">Voir mes projets</a>
+        <a href="#contact" class="bo" data-fr="Me contacter" data-en="Contact me">Me contacter</a>
+      </div>
+    </div>
+  </div>
+  <div class="hscr" data-fr="scroll" data-en="scroll">scroll</div>
+</section>
+
+<!-- ════════ ABOUT ════════ -->
+<section id="about">
+  <div class="sl" data-fr="01 · À propos" data-en="01 · About">01 · À propos</div>
+  <h2 class="st rv" data-fr="Qui suis-je ?" data-en="Who am I?">Qui suis-je ?</h2>
+
+  <div class="about-grid rv">
+    <div class="about-text">
+      <p data-fr="Je m'appelle Donald, 3e année de Génie Électrique à l'<strong>EPAC</strong> (Université d'Abomey-Calavi). Je ne suis pas juste un étudiant qui code : je suis quelqu'un qui a chopé le virus des systèmes embarqués parce que je voulais comprendre <strong>comment les machines "pensent"</strong> — vraiment." data-en="My name is Donald, 3rd year Electrical Engineering at <strong>EPAC</strong> (University of Abomey-Calavi). I'm not just a student who codes: I'm someone who caught the embedded systems bug because I wanted to understand <strong>how machines truly 'think'</strong>.">
+        Je m'appelle Donald, 3e année de Génie Électrique à l'<strong>EPAC</strong> (Université d'Abomey-Calavi). Je ne suis pas juste un étudiant qui code : je suis quelqu'un qui a chopé le virus des systèmes embarqués parce que je voulais comprendre <strong>comment les machines "pensent"</strong> — vraiment.
+      </p>
+      <p data-fr="Ce qui m'obsède vraiment ? La <strong>résilience des systèmes multi-agents</strong>. Comment des robots autonomes survivent-ils quand l'un d'eux tombe ? Comment coordonner de l'intelligence distribuée dans des conditions hostiles ? Ce ne sont pas des questions théoriques pour moi — elles définissent mon parcours de recherche." data-en="What really obsesses me? <strong>Multi-agent system resilience</strong>. How do autonomous robots survive when one of them fails? How do you coordinate distributed intelligence under hostile conditions? These aren't theoretical questions for me — they define my research path.">
+        Ce qui m'obsède vraiment ? La <strong>résilience des systèmes multi-agents</strong>. Comment des robots autonomes survivent-ils quand l'un d'eux tombe ? Comment coordonner de l'intelligence distribuée dans des conditions hostiles ? Ce ne sont pas des questions théoriques pour moi — elles définissent mon parcours de recherche.
+      </p>
+      <p data-fr="Objectif à long terme : appliquer les <strong>systèmes cyber-physiques</strong> aux défis critiques de l'Afrique — défense, transport intelligent, agriculture de précision, santé. Construire la tech qui manque ici, pas reproduire ce qui existe ailleurs." data-en="Long-term goal: apply <strong>cyber-physical systems</strong> to Africa's critical challenges — defense, smart transport, precision agriculture, healthcare. Building the tech that's missing here, not copying what exists elsewhere.">
+        Objectif à long terme : appliquer les <strong>systèmes cyber-physiques</strong> aux défis critiques de l'Afrique — défense, transport intelligent, agriculture de précision, santé. Construire la tech qui manque ici, pas reproduire ce qui existe ailleurs.
+      </p>
+    </div>
+
+    <div class="about-traits">
+      <div class="trait">
+        <div class="trait-title" data-fr="Comment je travaille" data-en="How I work">Comment je travaille</div>
+        <div class="trait-desc" data-fr="Je prototype vite, je casse des trucs, je comprends pourquoi, je recommence mieux. Je préfère un système qui tourne imparfaitement à un plan parfait sur papier." data-en="I prototype fast, break things, understand why, rebuild better. I prefer a system that runs imperfectly to a perfect plan on paper.">Je prototype vite, je casse des trucs, je comprends pourquoi, je recommence mieux. Je préfère un système qui tourne imparfaitement à un plan parfait sur papier.</div>
+      </div>
+      <div class="trait">
+        <div class="trait-title" data-fr="Ce que je cherche" data-en="What I'm looking for">Ce que je cherche</div>
+        <div class="trait-desc" data-fr="Des collaborations sur des projets où la tech a un impact réel. Des stages en R&D embarquée, robotique ou systèmes autonomes. Des équipes qui challengent mes idées." data-en="Collaborations on projects where tech has real impact. Internships in embedded R&D, robotics or autonomous systems. Teams that challenge my ideas.">Des collaborations sur des projets où la tech a un impact réel. Des stages en R&D embarquée, robotique ou systèmes autonomes. Des équipes qui challengent mes idées.</div>
+      </div>
+      <div class="trait">
+        <div class="trait-title" data-fr="Au-delà du code" data-en="Beyond code">Au-delà du code</div>
+        <div class="trait-desc" data-fr="Chef du club d'informatique industrielle à l'EPAC. Membre de Sirius Space Association. Permis B. Passionné d'astronomie — d'où le projet NASA. Convaincu que les meilleurs ingénieurs sont aussi de bons conteurs." data-en="Head of the industrial computing club at EPAC. Member of Sirius Space Association. Driving license B. Passionate about astronomy — hence the NASA project. Convinced the best engineers are also great communicators.">Chef du club d'informatique industrielle à l'EPAC. Membre de Sirius Space Association. Permis B. Passionné d'astronomie — d'où le projet NASA. Convaincu que les meilleurs ingénieurs sont aussi de bons conteurs.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ ENGAGEMENTS ════════ -->
+<section id="engagements">
+  <div class="sl" data-fr="02 · Engagements" data-en="02 · Involvement">02 · Engagements</div>
+  <h2 class="st rv" data-fr="Associations & Leadership" data-en="Associations & Leadership">Associations &amp; Leadership</h2>
+  <div class="eng-grid">
+
+    <div class="eng-card rv">
+      <div class="eng-icon">🚀</div>
+      <div class="eng-body">
+        <div class="eng-role" data-fr="Membre actif" data-en="Active member">Membre actif</div>
+        <div class="eng-org">Sirius Space Association</div>
+        <p class="eng-desc" data-fr="Association dédiée à la vulgarisation et à la recherche spatiale. Participation à des projets autour de l'astronomie, l'exploration spatiale et les technologies embarquées appliquées au domaine spatial." data-en="Association dedicated to space outreach and research. Participating in projects around astronomy, space exploration and embedded technologies applied to the space domain.">Association dédiée à la vulgarisation et à la recherche spatiale. Participation à des projets autour de l'astronomie, l'exploration spatiale et les technologies embarquées appliquées au domaine spatial.</p>
+        <span class="eng-badge">Spatial · Astronomie · R&D</span>
+      </div>
+    </div>
+
+
+    <div class="eng-card rv">
+      <div class="eng-icon">💡</div>
+      <div class="eng-body">
+        <div class="eng-role" data-fr="Chef de club · Bénévolat" data-en="Club President · Volunteer">Chef de club · Bénévolat</div>
+        <div class="eng-org" data-fr="Club d'Informatique Industrielle — EPAC" data-en="Industrial IT Club — EPAC">Club d'Informatique Industrielle — EPAC</div>
+        <p class="eng-desc" data-fr="Responsable du club d'informatique industrielle de l'École Polytechnique d'Abomey-Calavi. Animation d'ateliers pratiques, encadrement de membres juniors, organisation d'événements techniques et promotion de la culture maker au sein de l'école." data-en="President of the industrial computing club at École Polytechnique d'Abomey-Calavi. Running practical workshops, mentoring junior members, organizing technical events and promoting maker culture within the school.">Responsable du club d'informatique industrielle à l'EPAC. Animation d'ateliers, encadrement de membres juniors, organisation d'événements techniques et promotion de la culture maker.</p>
+        <span class="eng-badge">Leadership · Formation · Maker</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════ SKILLS ════════ -->
+<section id="skills">
+  <div class="sl" data-fr="03 · Compétences" data-en="03 · Skills">03 · Compétences</div>
+  <h2 class="st rv" data-fr="Arsenal technique" data-en="Technical Arsenal">Arsenal technique</h2>
+  <div class="sg">
+    <div class="sk rv"><div class="ski">⚡</div><div class="skt" data-fr="Microcontrôleurs" data-en="Microcontrollers">Microcontrôleurs</div><div class="tags"><span class="tag">Arduino</span><span class="tag">ESP32</span><span class="tag">ESP8266</span></div></div>
+    <div class="sk rv"><div class="ski">📡</div><div class="skt" data-fr="Protocoles" data-en="Protocols">Protocoles</div><div class="tags"><span class="tag">BLE</span><span class="tag">WiFi</span><span class="tag">LoRaWAN</span><span class="tag">I2C</span><span class="tag">SPI</span><span class="tag">UART</span></div></div>
+    <div class="sk rv"><div class="ski">💻</div><div class="skt" data-fr="Programmation" data-en="Programming">Programmation</div><div class="tags"><span class="tag">C++</span><span class="tag">Python</span><span class="tag">MATLAB</span><span class="tag">Assembleur</span></div></div>
+    <div class="sk rv"><div class="ski">🤖</div><div class="skt" data-fr="Robotique" data-en="Robotics">Robotique</div><div class="tags"><span class="tag">ROS2</span><span class="tag">Gazebo</span><span class="tag">Cinématique IK/FK</span><span class="tag">Contrôle asservi</span></div></div>
+    <div class="sk rv"><div class="ski">🧠</div><div class="skt" data-fr="IA Embarquée" data-en="Embedded AI">IA Embarquée</div><div class="tags"><span class="tag">TinyML</span><span class="tag">Edge Impulse</span><span class="tag">scikit-learn</span></div></div>
+    <div class="sk rv"><div class="ski">🔧</div><div class="skt" data-fr="Outils" data-en="Tools">Outils</div><div class="tags"><span class="tag">Git / GitHub</span><span class="tag">Docker</span><span class="tag">Linux</span><span class="tag">Fusion 360</span><span class="tag">Proteus</span></div></div>
+  </div>
+</section>
+
+<!-- ════════ PROJETS ════════ -->
+<section id="projects">
+  <div class="sl" data-fr="04 · Projets" data-en="04 · Projects">04 · Projets</div>
+  <h2 class="st rv" data-fr="Ce que j'ai construit" data-en="What I've built">Ce que j'ai construit</h2>
+  <div class="pg">
+
+    <div class="pc rv">
+      <div class="pi"><div class="pigrid"></div><div class="pico">🤖</div></div>
+      <div class="pb">
+        <div class="pnum">01</div>
+        <h3 class="ptit" data-fr="Path Tracking — Stanley Controller" data-en="Path Tracking — Stanley Controller">Path Tracking — Stanley Controller</h3>
+        <div class="pctx" data-fr="Projet robotique · Simulation ROS2 / Docker" data-en="Robotics project · ROS2 / Docker Simulation">Projet robotique · Simulation ROS2 / Docker</div>
+        <p class="pdesc" data-fr="Package ROS2 permettant à un robot mobile de suivre un humain en temps réel via le contrôleur Stanley. Conteneurisation complète sous Docker Ubuntu, pull request soumis sur dépôt collaboratif." data-en="ROS2 package enabling a mobile robot to follow a human in real time using the Stanley controller. Full containerization under Docker Ubuntu, pull request submitted on collaborative repository.">Package ROS2 permettant à un robot mobile de suivre un humain en temps réel via le contrôleur Stanley. Conteneurisation complète sous Docker Ubuntu, pull request soumis.</p>
+        <div class="pst"><span class="ptag">ROS2</span><span class="ptag">Python</span><span class="ptag">Docker</span><span class="ptag">GitHub</span></div>
+      </div>
+    </div>
+
+    <div class="pc rv">
+      <div class="pi"><div class="pigrid"></div><div class="pico">🦾</div></div>
+      <div class="pb">
+        <div class="pnum">02</div>
+        <h3 class="ptit" data-fr="Bras Robotique — Solveur IK" data-en="Robotic Arm — IK Solver">Bras Robotique — Solveur IK</h3>
+        <div class="pctx" data-fr="Projet équipe · Bras xArm · Pick and Place" data-en="Team project · xArm · Cube Pick and Place">Projet équipe · Bras xArm · Pick and Place</div>
+        <p class="pdesc" data-fr="Solveur de cinématique inverse par Damped Least Squares construit à partir du Jacobien géométrique. Parser URDF custom, intégration sur bras physique xArm. Simulation Gazebo en cours." data-en="Inverse kinematics solver using Damped Least Squares built from the geometric Jacobian. Custom URDF parser, integration on physical xArm. Gazebo simulation in progress.">Solveur de cinématique inverse par Damped Least Squares, construit à partir du Jacobien géométrique. Parser URDF custom, intégration sur bras physique xArm.</p>
+        <div class="pst"><span class="ptag">Python</span><span class="ptag">URDF</span><span class="ptag">Gazebo</span><span class="ptag">xArm</span></div>
+      </div>
+    </div>
+
+    <div class="pc rv">
+      <div class="pi">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAcFBQYFBAcGBgYIBwcICxILCwoKCxYPEA0SGhYbGhkWGRgcICgiHB4mHhgZIzAkJiorLS4tGyIyNTEsNSgsLSz/2wBDAQcICAsJCxULCxUsHRkdLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCz/wAARCAU7ArwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDwWiiig" alt="Echo Lens">
+      </div>
+      <div class="pb">
+        <div class="badge">NASA</div>
+        <div class="pnum">03</div>
+        <h3 class="ptit">Echo Lens — Hunting for Exoplanets</h3>
+        <div class="pctx">NASA Space Apps Challenge 2025</div>
+        <p class="pdesc" data-fr="Interface de détection d'exoplanètes. Classification supervisée multiclasse du catalogue Kepler : exoplanète confirmée, faux positif, candidat rejeté. Pipeline ML complet." data-en="Exoplanet detection interface. Supervised multiclass classification of the Kepler catalog: confirmed exoplanet, false positive, rejected candidate. Full ML pipeline.">Interface de détection d'exoplanètes. Classification supervisée multiclasse du catalogue Kepler. Pipeline ML complet avec scikit-learn.</p>
+        <div class="pst"><span class="ptag">Python</span><span class="ptag">scikit-learn</span><span class="ptag">Pandas</span><span class="ptag">Kepler Dataset</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════ AUTRES PROJETS ════════ -->
+<section id="other">
+  <div class="sl" data-fr="04b · Projets secondaires" data-en="04b · Side projects">04b · Projets secondaires</div>
+  <h2 class="st rv" data-fr="Projets secondaires" data-en="Side projects">Projets secondaires</h2>
+  <div class="og">
+    <div class="oc rv">
+      <img class="oc-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='165' viewBox='0 0 400 165'%3E%3Crect width='400' height='165' fill='%231A1D26'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2300C9A7' font-size='40'%3E🎮%3C/text%3E%3C/svg%3E" alt="Console ESP32">
+      <div class="oc-body">
+        <div class="otit" data-fr="Console 9 jeux ESP32" data-en="ESP32 9-Game Console">Console 9 jeux ESP32</div>
+        <p class="odesc" data-fr="Console multi-jeux construite en 24h. 1er Prix Arduino Days 2026, équipe HEPHAESTUS." data-en="Multi-game console built in 24h. 1st Prize Arduino Days 2026, team HEPHAESTUS.">Console multi-jeux construite en 24h. 1er Prix Arduino Days 2026, équipe HEPHAESTUS.</p>
+        <div class="tags"><span class="tag">ESP32</span><span class="tag">TinyML</span><span class="tag">Edge Impulse</span></div>
+      </div>
+    </div>
+    <div class="oc rv">
+      <img class="oc-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='165' viewBox='0 0 400 165'%3E%3Crect width='400' height='165' fill='%231A1D26'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2300C9A7' font-size='40'%3E📡%3C/text%3E%3C/svg%3E" alt="Radar ultrasonique">
+      <div class="oc-body">
+        <div class="otit" data-fr="Radar de Surveillance" data-en="Surveillance Radar">Radar de Surveillance</div>
+        <p class="odesc" data-fr="Radar de détection périmétrique par capteur ultrasonique avec visualisation temps réel. 13 cibles détectées simultanément." data-en="Perimetric detection radar with real-time visualization. 13 targets detected simultaneously.">Radar de détection périmétrique par capteur ultrasonique avec visualisation temps réel. 13 cibles détectées simultanément.</p>
+        <div class="tags"><span class="tag">Arduino</span><span class="tag">Ultrasonique</span><span class="tag">Processing</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CONTACT ════════ -->
+<section id="contact">
+  <div class="ci">
+    <div class="sl" style="justify-content:center" data-fr="05 · Contact" data-en="05 · Contact">05 · Contact</div>
+    <h2 class="st rv" data-fr="Travaillons ensemble" data-en="Let's work together">Travaillons ensemble</h2>
+    <p class="rv" data-fr="Étudiant ingénieur disponible pour des collaborations, stages et projets de recherche. Toujours partant pour une bonne discussion sur les systèmes embarqués ou la robotique." data-en="Engineering student available for collaborations, internships and research projects. Always up for a good discussion about embedded systems or robotics.">Étudiant ingénieur disponible pour des collaborations, stages et projets de recherche. Toujours partant pour une bonne discussion sur les systèmes embarqués ou la robotique.</p>
+    <a href="mailto:okedonald790@gmail.com" class="cemail rv">okedonald790@gmail.com</a>
+    <div class="cls rv">
+      <a href="https://github.com/doriqu" target="_blank" class="cl"><span>⌥</span> GitHub</a>
+      <a href="https://www.linkedin.com/in/donald-oke-343369331" target="_blank" class="cl"><span>◆</span> LinkedIn</a>
+      <a href="tel:+2290190237379" class="cl"><span>◎</span> +229 01 90 23 73 79</a>
+      <span class="cl"><span>●</span> <span data-fr="Permis B" data-en="Driving License B">Permis B</span></span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>2026 — OKE Donald Riquelme Djidjoho</p>
+  <p style="color:var(--acc);font-family:var(--Mf);font-size:.58rem;letter-spacing:.1em">EPAC · UAC · Cotonou, Bénin</p>
+</footer>
+
+<!-- ════════ SCRIPTS ════════ -->
+<script>
+// Curseur custom
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function anim(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(anim)})();
+document.querySelectorAll('a,button,.pc,.sk,.oc').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.2)';curR.style.transform='translate(-50%,-50%) scale(1.5)';curR.style.borderColor='var(--acc)'});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';curR.style.transform='translate(-50%,-50%) scale(1)';curR.style.borderColor='var(--acc)'});
+});
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('v'),i*70);obs.unobserve(e.target)}});
+},{threshold:.1});
+document.querySelectorAll('.rv').forEach(r=>obs.observe(r));
+
+// === LANGUE ===
+let lang='fr';
+function tl(){
+  lang=lang==='fr'?'en':'fr';
+  document.getElementById('lbtn').textContent=lang==='fr'?'EN':'FR';
+  document.documentElement.lang=lang;
+  document.querySelectorAll('[data-fr]').forEach(el=>{
+    const t=el.getAttribute('data-'+lang);
+    if(t)el.innerHTML=t;
+  });
+}
+
+// === THÈME ===
+let isDark=true;
+function toggleTheme(){
+  isDark=!isDark;
+  const root=document.documentElement;
+  root.setAttribute('data-theme',isDark?'dark':'light');
+  document.getElementById('themeicon').textContent=isDark?'☀️':'🌙';
+  document.getElementById('themelabel').textContent=isDark?'Light':'Dark';
+  // Adapter la navbar selon thème
+  document.querySelector('nav').style.background=isDark?'rgba(13,15,20,.85)':'rgba(248,250,252,.9)';
+}
+</script>
+</body>
+</html>
