@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
-/* THEME UNIQUE */
 :root{
   --bg:#0c0a07;--bg2:#12100c;--bg3:#191410;--card:#1e1812;--card2:#252017;
   --amb:#C8823A;--gold:#D4A854;--cream:#EDE0CC;--text:#E8D8C0;--mut:#8A7A68;--faint:#3A2E22;
@@ -20,26 +19,38 @@ body{background:var(--bg);color:var(--text);font-family:var(--Bf);overflow-x:hid
 .curR{width:30px;height:30px;border:1px solid var(--amb);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .18s;opacity:.55}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.5}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(12,10,7,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--faint)}
-.nl{font-family:var(--Mf);font-size:.78rem;color:var(--amb);letter-spacing:.14em}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(12,10,7,.95);backdrop-filter:blur(18px);border-bottom:1px solid var(--faint)}
+.nl{font-family:var(--Mf);font-size:.78rem;color:var(--amb);letter-spacing:.14em;flex-shrink:0}
 .nv{display:flex;gap:2rem;list-style:none;align-items:center}
 .nv a{font-family:var(--Mf);font-size:.68rem;color:var(--mut);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
 .nv a:hover{color:var(--amb)}
-.lb{font-family:var(--Mf);font-size:.7rem;background:var(--faint);color:var(--amb);border:1px solid #5a3e22;padding:.28rem .8rem;border-radius:2px;cursor:none;letter-spacing:.1em;transition:all .2s}
+.lb{font-family:var(--Mf);font-size:.7rem;background:var(--faint);color:var(--amb);border:1px solid #5a3e22;padding:.28rem .8rem;border-radius:2px;cursor:pointer;letter-spacing:.1em;transition:all .2s}
 .lb:hover{background:var(--amb);color:var(--bg)}
 
-/* HERO */
+/* Hamburger */
+.hbg{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:.3rem;z-index:200}
+.hbg span{display:block;width:22px;height:2px;background:var(--amb);transition:all .3s;border-radius:2px}
+.hbg.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hbg.open span:nth-child(2){opacity:0}
+.hbg.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* Mobile drawer */
+.mob-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(12,10,7,.98);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:2rem;opacity:0;pointer-events:none;transition:opacity .3s}
+.mob-menu.open{opacity:1;pointer-events:all}
+.mob-menu a{font-family:var(--Mf);font-size:1rem;color:var(--mut);text-decoration:none;letter-spacing:.18em;text-transform:uppercase;transition:color .2s;padding:.5rem 0;border-bottom:1px solid var(--faint);width:200px;text-align:center}
+.mob-menu a:hover{color:var(--amb)}
+.mob-lb{font-family:var(--Mf);font-size:.85rem;background:var(--faint);color:var(--amb);border:1px solid #5a3e22;padding:.5rem 1.4rem;border-radius:2px;cursor:pointer;letter-spacing:.14em;margin-top:.5rem;transition:all .2s}
+.mob-lb:hover{background:var(--amb);color:var(--bg)}
+
+/* ── HERO ── */
 #hero{min-height:100vh;display:flex;align-items:center;padding:7rem 3rem 4rem;position:relative;overflow:hidden}
 .hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(200,130,58,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(200,130,58,.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%)}
 .hglow{position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(200,130,58,.09) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
 .hi{display:grid;grid-template-columns:220px 1fr;gap:4rem;align-items:center;position:relative;z-index:1;width:100%;max-width:1100px;margin:0 auto}
-
-/* Photo ronde dans l'angle */
 .hpf{width:200px;height:200px;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 0 0 3px var(--amb),0 0 0 7px var(--faint),0 0 40px rgba(200,130,58,.15);position:relative}
 .hpf::after{content:'';position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--amb);opacity:.35;pointer-events:none}
 .hpf img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(8%) contrast(1.05)}
-
 .htag{font-family:var(--Mf);font-size:.7rem;color:var(--amb);letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.1rem;display:flex;align-items:center;gap:.8rem}
 .htag::before{content:'';display:block;width:34px;height:1px;background:var(--amb)}
 .hname{font-family:var(--Hf);font-size:clamp(2.6rem,5vw,5rem);font-weight:800;line-height:.95;letter-spacing:-.02em;color:var(--cream);margin-bottom:.7rem}
@@ -47,35 +58,45 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .htitle{font-family:var(--Bf);font-size:.98rem;color:var(--mut);font-weight:300;margin-bottom:1.8rem}
 .hv{font-size:.98rem;color:var(--text);max-width:560px;line-height:1.9;margin-bottom:2.4rem;border-left:2px solid var(--amb);padding-left:1.2rem;font-weight:300}
 .hcta{display:flex;gap:.9rem;flex-wrap:wrap}
-.bp{font-family:var(--Mf);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.7rem;background:var(--amb);color:var(--bg);text-decoration:none;cursor:none;transition:all .2s;font-weight:700}
+.bp{font-family:var(--Mf);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.7rem;background:var(--amb);color:var(--bg);text-decoration:none;cursor:pointer;transition:all .2s;font-weight:700}
 .bp:hover{background:var(--gold);transform:translateY(-2px)}
-.bo{font-family:var(--Mf);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.7rem;background:transparent;color:var(--amb);text-decoration:none;border:1px solid #6a4020;cursor:none;transition:all .2s}
+.bo{font-family:var(--Mf);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.7rem;background:transparent;color:var(--amb);text-decoration:none;border:1px solid #6a4020;cursor:pointer;transition:all .2s}
 .bo:hover{border-color:var(--amb);transform:translateY(-2px)}
-.hscr{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-family:var(--Mf);font-size:.58rem;color:var(--mut);letter-spacing:.2em;display:flex;flex-direction:column;align-items:center;gap:.4rem;animation:bnc 2.4s infinite}
-.hscr::after{content:'';width:1px;height:34px;background:linear-gradient(to bottom,var(--amb),transparent)}
-@keyframes bnc{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
 
-/* SECTIONS */
+/* Triangle scroll indicator */
+.hscr{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;animation:bnc 2.4s ease-in-out infinite;cursor:pointer;text-decoration:none}
+.hscr-label{font-family:var(--Mf);font-size:.58rem;color:var(--mut);letter-spacing:.2em;text-transform:uppercase}
+.hscr-tri{width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:12px solid var(--amb);opacity:.8}
+@keyframes bnc{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+
+/* ── SECTIONS ── */
 section{padding:6rem 3rem;position:relative}
 .sl{font-family:var(--Mf);font-size:.66rem;color:var(--amb);letter-spacing:.24em;text-transform:uppercase;margin-bottom:.65rem;display:flex;align-items:center;gap:1rem}
 .sl::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--faint),transparent)}
 .st{font-family:var(--Hf);font-size:clamp(1.8rem,3.5vw,2.7rem);font-weight:800;color:var(--cream);margin-bottom:3rem;letter-spacing:-.02em}
 
-/* ABOUT */
+/* Liens inline */
+.ilink{color:var(--amb);text-decoration:none;border-bottom:1px solid rgba(200,130,58,.35);transition:border-color .2s,color .2s}
+.ilink:hover{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* ── ABOUT ── */
 #about{background:var(--bg2)}
 .at p{color:var(--text);margin-bottom:1.2rem;font-size:1rem;font-weight:300;line-height:1.85;max-width:760px}
 .at p strong{color:var(--amb);font-weight:500}
 
-/* ENGAGEMENTS */
+/* ── ENGAGEMENTS ── */
 #engagements{background:var(--bg3)}
 .eg{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.1rem}
 .ec{background:var(--card);border:1px solid var(--faint);border-left:3px solid var(--amb);padding:1.4rem;transition:all .3s}
 .ec:hover{background:var(--card2);transform:translateY(-3px)}
 .ec-role{font-family:var(--Mf);font-size:.6rem;color:var(--amb);letter-spacing:.16em;text-transform:uppercase;margin-bottom:.3rem;font-weight:700}
-.ec-org{font-family:var(--Hf);font-size:.95rem;font-weight:700;color:var(--cream);margin-bottom:.5rem}
+.ec-org{font-family:var(--Hf);font-size:.95rem;font-weight:700;color:var(--cream);margin-bottom:.5rem;display:flex;align-items:center;gap:.6rem}
+.ec-org a{color:inherit;text-decoration:none;display:flex;align-items:center;gap:.6rem;transition:color .2s}
+.ec-org a:hover{color:var(--amb)}
+.ec-org img{width:22px;height:22px;object-fit:contain;border-radius:3px;flex-shrink:0}
 .ec-desc{font-size:.82rem;color:var(--mut);line-height:1.65;font-weight:300}
 
-/* SKILLS */
+/* ── SKILLS ── */
 #skills{background:var(--bg)}
 .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:1.1rem}
 .sk{background:var(--card);border:1px solid var(--faint);padding:1.5rem;transition:all .3s;position:relative;overflow:hidden}
@@ -88,7 +109,7 @@ section{padding:6rem 3rem;position:relative}
 .tag{font-family:var(--Mf);font-size:.6rem;padding:.26rem .6rem;background:var(--faint);color:var(--amb);letter-spacing:.07em;border:1px solid transparent;transition:border-color .2s}
 .tag:hover{border-color:var(--amb)}
 
-/* PROJETS */
+/* ── PROJETS ── */
 #projects{background:var(--bg2)}
 .pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.3rem}
 .pc{background:var(--card);border:1px solid var(--faint);overflow:hidden;transition:all .35s;position:relative}
@@ -108,7 +129,7 @@ section{padding:6rem 3rem;position:relative}
 .pglink{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--Mf);font-size:.62rem;color:var(--amb);text-decoration:none;border:1px solid var(--faint);padding:.28rem .75rem;margin-top:.8rem;letter-spacing:.08em;transition:all .2s}
 .pglink:hover{border-color:var(--amb);background:var(--faint)}
 
-/* AUTRES PROJETS */
+/* ── AUTRES PROJETS ── */
 #other{background:var(--bg3)}
 .og{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.1rem}
 .oc{background:var(--card);border:1px solid var(--faint);overflow:hidden;transition:all .35s}
@@ -119,7 +140,7 @@ section{padding:6rem 3rem;position:relative}
 .otit{font-family:var(--Hf);font-size:.92rem;font-weight:700;color:var(--cream);margin-bottom:.3rem}
 .odesc{font-size:.8rem;color:var(--mut);line-height:1.6;font-weight:300;margin-bottom:.7rem}
 
-/* CONTACT */
+/* ── CONTACT ── */
 #contact{background:var(--bg);text-align:center}
 .ci{max-width:580px;margin:0 auto}
 .ci p{color:var(--mut);font-size:.98rem;font-weight:300;margin-bottom:2.3rem;line-height:1.8}
@@ -129,17 +150,17 @@ section{padding:6rem 3rem;position:relative}
 .cl{display:flex;align-items:center;gap:.5rem;font-family:var(--Mf);font-size:.7rem;color:var(--mut);text-decoration:none;letter-spacing:.08em;padding:.6rem 1rem;border:1px solid var(--faint);transition:all .2s}
 .cl:hover{color:var(--amb);border-color:#6a4020}
 
-/* FOOTER */
+/* ── FOOTER ── */
 footer{background:var(--bg2);border-top:1px solid var(--faint);padding:1.3rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
 footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.1em}
 
-/* ANIMATIONS */
+/* ── ANIMATIONS ── */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
 .rv.v{opacity:1;transform:translateY(0)}
 
-/* ═══════════════════════════════
-   RESPONSIVE TABLETTE (max 1024px)
-═══════════════════════════════ */
+/* ══════════════════════════════
+   TABLETTE (max 1024px)
+══════════════════════════════ */
 @media(max-width:1024px){
   nav{padding:1rem 2rem}
   .nv{gap:1.4rem}
@@ -148,44 +169,43 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
   section{padding:5rem 2rem}
 }
 
-/* ═══════════════════════════════
-   RESPONSIVE MOBILE (max 768px)
-═══════════════════════════════ */
+/* ══════════════════════════════
+   MOBILE (max 768px)
+══════════════════════════════ */
 @media(max-width:768px){
-  /* Navbar mobile */
+  body{cursor:auto}
+  .cur,.curR{display:none}
+
   nav{padding:.85rem 1.4rem}
   .nv{display:none}
+  .hbg{display:flex}
+  .mob-menu{display:flex}
 
-  /* Hero mobile : photo en haut centrée, texte en dessous */
-  #hero{padding:6rem 1.4rem 3rem;align-items:flex-start}
+  #hero{padding:6rem 1.4rem 3.5rem;align-items:flex-start}
   .hi{grid-template-columns:1fr;gap:1.8rem;text-align:center}
-  .hpf{width:140px;height:140px;margin:0 auto}
+  .hpf{width:130px;height:130px;margin:0 auto}
   .htag{justify-content:center}
   .htag::before{display:none}
   .hname{font-size:clamp(2.2rem,10vw,3.2rem)}
   .hv{font-size:.92rem;text-align:left;margin:0 auto 1.8rem}
   .hcta{justify-content:center}
-  .hscr{display:none}
 
-  /* Sections */
   section{padding:3.5rem 1.4rem}
-  .st{margin-bottom:1.8rem}
+  .st{margin-bottom:1.8rem;font-size:1.6rem}
 
-  /* Grilles */
   .sg{grid-template-columns:1fr}
   .pg{grid-template-columns:1fr}
   .og{grid-template-columns:1fr 1fr}
   .eg{grid-template-columns:1fr}
 
-  /* Contact */
   .cls{flex-direction:column;align-items:stretch}
   .cl{justify-content:center}
   footer{padding:1rem 1.4rem;flex-direction:column;text-align:center}
 }
 
-/* ═══════════════════════════════
-   RESPONSIVE PETIT MOBILE (max 420px)
-═══════════════════════════════ */
+/* ══════════════════════════════
+   PETIT MOBILE (max 420px)
+══════════════════════════════ */
 @media(max-width:420px){
   .og{grid-template-columns:1fr}
   .hname{font-size:2rem}
@@ -197,6 +217,16 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
 <div class="cur" id="cur"></div>
 <div class="curR" id="curR"></div>
 
+<!-- MENU MOBILE DRAWER -->
+<div class="mob-menu" id="mobMenu">
+  <a href="#about" onclick="closeMob()" data-fr="A propos" data-en="About">A propos</a>
+  <a href="#engagements" onclick="closeMob()" data-fr="Engagements" data-en="Involvement">Engagements</a>
+  <a href="#skills" onclick="closeMob()" data-fr="Competences" data-en="Skills">Competences</a>
+  <a href="#projects" onclick="closeMob()" data-fr="Projets" data-en="Projects">Projets</a>
+  <a href="#contact" onclick="closeMob()" data-fr="Contact" data-en="Contact">Contact</a>
+  <button class="mob-lb" id="mobLbtn" onclick="tl()">EN</button>
+</div>
+
 <nav>
   <div class="nl">donald.oke</div>
   <ul class="nv">
@@ -207,6 +237,9 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
     <li><a href="#contact" data-fr="Contact" data-en="Contact">Contact</a></li>
     <li><button class="lb" id="lbtn" onclick="tl()">EN</button></li>
   </ul>
+  <button class="hbg" id="hbg" onclick="toggleMob()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <section id="hero">
@@ -219,8 +252,10 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
     <div class="htext">
       <div class="htag" data-fr="Genie Electrique - Benin" data-en="Electrical Engineering - Benin">Genie Electrique - Benin</div>
       <h1 class="hname">Donald<br><span>OKE</span></h1>
-      <p class="htitle" data-fr="Systemes Embarques et Robotique " data-en="Embedded Systems and Robotics">Systemes Embarques et Robotique</p>
-      <p class="hv" data-fr="Je construis les briques technologiques des systemes de demain : la ou calcul, communication et monde physique fusionnent en un seul organisme coherent. Ma vision, des systemes autonomes, resilients, capables de se coordonner et de survivre sous adversite, au service de l'Afrique." data-en="I build the technological foundations of tomorrow's systems: where computation, communication and the physical world merge into one coherent organism. My vision, autonomous and resilient systems capable of coordinating and surviving under adversity, in service of Africa.">
+      <p class="htitle" data-fr="Systemes Embarques et Robotique" data-en="Embedded Systems and Robotics">Systemes Embarques et Robotique</p>
+      <p class="hv"
+        data-fr="Je construis les briques technologiques des systemes de demain : la ou calcul, communication et monde physique fusionnent en un seul organisme coherent. Ma vision, des systemes autonomes, resilients, capables de se coordonner et de survivre sous adversite, au service de l'Afrique."
+        data-en="I build the technological foundations of tomorrow's systems: where computation, communication and the physical world merge into one coherent organism. My vision, autonomous and resilient systems capable of coordinating and surviving under adversity, in service of Africa.">
         Je construis les briques technologiques des systemes de demain : la ou calcul, communication et monde physique fusionnent en un seul organisme coherent. Ma vision, des systemes autonomes, resilients, capables de se coordonner et de survivre sous adversite, au service de l'Afrique.
       </p>
       <div class="hcta">
@@ -229,18 +264,25 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
       </div>
     </div>
   </div>
-  <div class="hscr" data-fr="scroll" data-en="scroll">scroll</div>
+  <a href="#about" class="hscr">
+    <span class="hscr-label" data-fr="scroll" data-en="scroll">scroll</span>
+    <div class="hscr-tri"></div>
+  </a>
 </section>
 
 <section id="about">
   <div class="sl" data-fr="01 - A propos" data-en="01 - About">01 - A propos</div>
   <h2 class="st rv" data-fr="Qui suis-je ?" data-en="Who am I?">Qui suis-je ?</h2>
   <div class="at rv">
-    <p data-fr="Etudiant ingenieur en 3e annee de Génie Electrique à l'<strong>EPAC</strong> (Universite d'Abomey-Calavi), specialise en systemes embarques et robotique. Ce qui me fascine profondement, c'est la question de la <strong>resilience des systemes multi-agents</strong> : comment des entites autonomes se coordonnent-elles ? Comment un systeme survit-il quand l'un de ses agents est compromis ?" data-en="3rd year engineering student at <strong>EPAC</strong> (University of Abomey-Calavi), specializing in embedded systems and robotics. What deeply fascinates me is the question of <strong>resilient multi-agent systems</strong>: how do autonomous entities coordinate? How does a system survive when one of its agents is compromised?">
-      Etudiant ingenieur en 3e annee de Génie Electrique à l'<strong>EPAC</strong> (Universite d'Abomey-Calavi), specialise en systemes embarques et robotique. Ce qui me fascine profondement, c'est la question de la <strong>resilience des systemes multi-agents</strong> : comment des entites autonomes se coordonnent-elles ? Comment un systeme survit-il quand l'un de ses agents est compromis ?
+    <p
+      data-fr="Etudiant ingenieur en 3e annee de Genie Electrique a l'<a href='https://epac-uac.bj/' target='_blank' class='ilink'>EPAC</a> (Universite d'Abomey-Calavi), specialise en systemes embarques et robotique. Ce qui me fascine profondement, c'est la question de la <a href='https://en.wikipedia.org/wiki/Multi-agent_system' target='_blank' class='ilink'>resilience des systemes multi-agents</a> : comment des entites autonomes se coordonnent-elles ? Comment un systeme survit-il quand l'un de ses agents est compromis ?"
+      data-en="3rd year engineering student at <a href='https://epac-uac.bj/' target='_blank' class='ilink'>EPAC</a> (University of Abomey-Calavi), specializing in embedded systems and robotics. What deeply fascinates me is the question of <a href='https://en.wikipedia.org/wiki/Multi-agent_system' target='_blank' class='ilink'>resilient multi-agent systems</a>: how do autonomous entities coordinate? How does a system survive when one of its agents is compromised?">
+      Etudiant ingenieur en 3e annee de Genie Electrique a l'<a href="https://epac-uac.bj/" target="_blank" class="ilink">EPAC</a> (Universite d'Abomey-Calavi), specialise en systemes embarques et robotique. Ce qui me fascine profondement, c'est la question de la <a href="https://en.wikipedia.org/wiki/Multi-agent_system" target="_blank" class="ilink">resilience des systemes multi-agents</a> : comment des entites autonomes se coordonnent-elles ? Comment un systeme survit-il quand l'un de ses agents est compromis ?
     </p>
-    <p data-fr="Ces questions ne sont pas theoriques. Elles definissent ma trajectoire de recherche et ma vision a long terme : appliquer les <strong>systemes cyber-physiques</strong> aux defis critiques de l'Afrique, defense, transport, agriculture, sante." data-en="These questions are not theoretical. They define my research trajectory and long-term vision: applying <strong>cyber-physical systems</strong> to Africa's critical challenges, defense, transportation, agriculture, healthcare.">
-      Ces questions ne sont pas theoriques. Elles definissent ma trajectoire de recherche et ma vision a long terme : appliquer les <strong>systemes cyber-physiques</strong> aux defis critiques de l'Afrique, defense, transport, agriculture, sante.
+    <p
+      data-fr="Ces questions ne sont pas theoriques. Elles definissent ma trajectoire de recherche et ma vision a long terme : appliquer les <a href='https://en.wikipedia.org/wiki/Cyber-physical_system' target='_blank' class='ilink'>systemes cyber-physiques</a> aux defis critiques de l'Afrique, defense, transport, agriculture, sante."
+      data-en="These questions are not theoretical. They define my research trajectory and long-term vision: applying <a href='https://en.wikipedia.org/wiki/Cyber-physical_system' target='_blank' class='ilink'>cyber-physical systems</a> to Africa's critical challenges, defense, transportation, agriculture, healthcare.">
+      Ces questions ne sont pas theoriques. Elles definissent ma trajectoire de recherche et ma vision a long terme : appliquer les <a href="https://en.wikipedia.org/wiki/Cyber-physical_system" target="_blank" class="ilink">systemes cyber-physiques</a> aux defis critiques de l'Afrique, defense, transport, agriculture, sante.
     </p>
   </div>
 </section>
@@ -251,13 +293,26 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
   <div class="eg">
     <div class="ec rv">
       <div class="ec-role" data-fr="Membre actif" data-en="Active member">Membre actif</div>
-      <div class="ec-org">🚀 Sirius Space Association</div>
-      <p class="ec-desc" data-fr="Association dédiée à la vulgarisation et à la recherche spatiale. Participation à des projets autour de l'astronomie, l'exploration spatiale et les technologies embarquées appliquées au domaine spatial." data-en="Association dedicated to space outreach and research. Participating in projects around astronomy, space exploration and embedded technologies for the space domain.">Association dédiée à la vulgarisation et à la recherche spatiale. Participation à des projets autour de l'astronomie, l'exploration spatiale et les technologies embarquées appliquées au domaine spatial.</p>
+      <div class="ec-org">
+        <a href="https://www.linkedin.com/company/sirius-astro-benin/" target="_blank">
+          <img src="sirius-logo.jpeg" alt="Sirius Space Association">
+          Sirius Space Association
+        </a>
+      </div>
+      <p class="ec-desc"
+        data-fr="Association dédiée à la vulgarisation et à la recherche spatiale. Participation à des projets autour de l'astronomie, l'exploration spatiale et les technologies embarquées appliquées au domaine spatial."
+        data-en="Association dedicated to space outreach and research. Participating in projects around astronomy, space exploration and embedded technologies for the space domain.">
+        Association dédiée à la vulgarisation et à la recherche spatiale. Participation à des projets autour de l'astronomie, l'exploration spatiale et les technologies embarquées appliquées au domaine spatial.
+      </p>
     </div>
     <div class="ec rv">
       <div class="ec-role" data-fr="Chef de club · Bénévolat" data-en="Club President · Volunteer">Chef de club · Bénévolat</div>
       <div class="ec-org">💡 Club Informatique Industrielle — EPAC</div>
-      <p class="ec-desc" data-fr="Responsable du club d'informatique industrielle de l'École Polytechnique d'Abomey-Calavi. Animation d'ateliers pratiques, encadrement de membres juniors, organisation d'événements techniques." data-en="Head of the industrial computing club at EPAC. Running practical workshops, mentoring junior members, organizing technical events.">Responsable du club d'informatique industrielle de l'École Polytechnique d'Abomey-Calavi. Animation d'ateliers pratiques, encadrement de membres juniors, organisation d'événements techniques.</p>
+      <p class="ec-desc"
+        data-fr="Responsable du club d'informatique industrielle de l'École Polytechnique d'Abomey-Calavi. Animation d'ateliers pratiques, encadrement de membres juniors, organisation d'événements techniques."
+        data-en="Head of the industrial computing club at EPAC. Running practical workshops, mentoring junior members, organizing technical events.">
+        Responsable du club d'informatique industrielle de l'École Polytechnique d'Abomey-Calavi. Animation d'ateliers pratiques, encadrement de membres juniors, organisation d'événements techniques.
+      </p>
     </div>
   </div>
 </section>
@@ -286,19 +341,35 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
         <div class="pnum">01</div>
         <h3 class="ptit" data-fr="Path Tracking - Stanley Controller" data-en="Path Tracking - Stanley Controller">Path Tracking - Stanley Controller</h3>
         <div class="pctx" data-fr="Simulation ROS2 / Docker" data-en="ROS2 / Docker Simulation">Simulation ROS2 / Docker</div>
-        <p class="pdesc" data-fr="Package ROS2 permettant a un robot mobile de suivre un humain en temps reel via le controleur Stanley. Containerisation complete sous Docker Ubuntu, pull request soumis sur depot collaboratif." data-en="ROS2 package enabling a mobile robot to follow a human in real time using the Stanley controller. Full containerization under Docker Ubuntu, pull request submitted on collaborative repository.">Package ROS2 permettant a un robot mobile de suivre un humain en temps reel via le controleur Stanley. Containerisation complete sous Docker Ubuntu, pull request soumis sur depot collaboratif.</p>
+        <p class="pdesc"
+          data-fr="Package ROS2 permettant a un robot mobile de suivre un humain en temps reel via le controleur Stanley. Containerisation complete sous Docker Ubuntu, pull request soumis sur depot collaboratif."
+          data-en="ROS2 package enabling a mobile robot to follow a human in real time using the Stanley controller. Full containerization under Docker Ubuntu, pull request submitted on collaborative repository.">
+          Package ROS2 permettant a un robot mobile de suivre un humain en temps reel via le controleur Stanley. Containerisation complete sous Docker Ubuntu, pull request soumis sur depot collaboratif.
+        </p>
         <div class="pst"><span class="ptag">ROS2</span><span class="ptag">Python</span><span class="ptag">Docker</span><span class="ptag">GitHub</span></div>
       </div>
     </div>
 
     <div class="pc rv">
-      <div class="pi"><img src="project2.jpeg" alt="Bras Robotique IK xArm"><div class="pigrid"></div></div>
+      <div class="pi"><img src="project2.jpeg" alt="Bras Robotique xArm Pick and Place"><div class="pigrid"></div></div>
       <div class="pb">
         <div class="pnum">02</div>
-        <h3 class="ptit" data-fr="Bras Robotique xArm - Module Cinematique" data-en="xArm Robotic Arm - Kinematics Module">Bras Robotique xArm - Module Cinematique</h3>
-        <div class="pctx" data-fr="Projet equipe - Pick and Place de cubes" data-en="Team project - Cube Pick and Place">Projet equipe - Pick and Place de cubes</div>
-        <p class="pdesc" data-fr="Conception du module cinematique complet d'un bras xArm : cinematique directe (DH) et inverse (analytique + numerique Damped Least Squares). Parser URDF custom, validation forward(inverse(p)) ≈ p, integration SDK xArm, simulation Gazebo en cours." data-en="Full kinematics module for xArm: forward kinematics (DH) and inverse (analytical + numerical Damped Least Squares). Custom URDF parser, forward(inverse(p)) ≈ p validation, xArm SDK integration, Gazebo simulation in progress.">Conception du module cinematique complet d'un bras xArm : cinematique directe (DH) et inverse (analytique + numerique Damped Least Squares). Parser URDF custom, validation forward(inverse(p)) ≈ p, integration SDK xArm.</p>
-        <div class="pst"><span class="ptag">Python</span><span class="ptag">DH Parameters</span><span class="ptag">URDF</span><span class="ptag">xArm SDK</span><span class="ptag">Gazebo</span></div>
+        <h3 class="ptit"
+          data-fr="Bras Robotique Autonome xArm - Pick &amp; Place"
+          data-en="Autonomous xArm Robotic Arm - Pick &amp; Place">
+          Bras Robotique Autonome xArm - Pick &amp; Place
+        </h3>
+        <div class="pctx"
+          data-fr="Vision par ordinateur · Cinematique inverse · Tache industrielle"
+          data-en="Computer vision · Inverse kinematics · Industrial task">
+          Vision par ordinateur · Cinematique inverse · Tache industrielle
+        </div>
+        <p class="pdesc"
+          data-fr="Developpement d'un bras robotique autonome (HiWonder xArm) pour une tache industrielle de pick-and-place. Le systeme s'appuie sur la vision par ordinateur classique via une segmentation colorimetrique (espace HSV avec OpenCV) pour localiser les objets en temps reel. Un solveur de cinematique inverse (Python / NumPy) calcule ensuite les trajectoires, permettant au robot d'enchainer de maniere 100 % autonome la detection, la saisie et la depose des cibles."
+          data-en="Development of an autonomous robotic arm (HiWonder xArm) for an industrial pick-and-place task. The system uses classical computer vision via colorimetric segmentation (HSV color space with OpenCV) to locate objects in real time. An inverse kinematics solver (Python / NumPy) then computes trajectories, enabling the robot to autonomously chain detection, grasping and placement of targets.">
+          Developpement d'un bras robotique autonome (HiWonder xArm) pour une tache industrielle de pick-and-place. Le systeme s'appuie sur la vision par ordinateur classique via une segmentation colorimetrique (espace HSV avec OpenCV) pour localiser les objets en temps reel. Un solveur de cinematique inverse (Python / NumPy) calcule ensuite les trajectoires, permettant au robot d'enchainer de maniere 100 % autonome la detection, la saisie et la depose des cibles.
+        </p>
+        <div class="pst"><span class="ptag">Python</span><span class="ptag">OpenCV</span><span class="ptag">NumPy</span><span class="ptag">xArm SDK</span><span class="ptag">HSV</span><span class="ptag">IK Solver</span></div>
         <a href="LIEN_GITHUB_PROJET2" target="_blank" class="pglink">⌥ GitHub</a>
       </div>
     </div>
@@ -310,19 +381,35 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
         <div class="pnum">03</div>
         <h3 class="ptit">Echo Lens - Hunting for Exoplanets</h3>
         <div class="pctx">NASA Space Apps Challenge 2025</div>
-        <p class="pdesc" data-fr="Interface de detection d'exoplanetes baptisee Echo Lens. Classification supervisee multiclasse du catalogue Kepler : exoplanete confirmee, faux positif, candidat rejete. Pipeline ML complet." data-en="Exoplanet detection interface named Echo Lens. Supervised multiclass classification of the Kepler catalog: confirmed exoplanet, false positive, rejected candidate. Full ML pipeline.">Interface de detection d'exoplanetes baptisee Echo Lens. Classification supervisee multiclasse du catalogue Kepler : exoplanete confirmee, faux positif, candidat rejete. Pipeline ML complet.</p>
+        <p class="pdesc"
+          data-fr="Interface de detection d'exoplanetes baptisee Echo Lens. Classification supervisee multiclasse du catalogue Kepler : exoplanete confirmee, faux positif, candidat rejete. Pipeline ML complet."
+          data-en="Exoplanet detection interface named Echo Lens. Supervised multiclass classification of the Kepler catalog: confirmed exoplanet, false positive, rejected candidate. Full ML pipeline.">
+          Interface de detection d'exoplanetes baptisee Echo Lens. Classification supervisee multiclasse du catalogue Kepler : exoplanete confirmee, faux positif, candidat rejete. Pipeline ML complet.
+        </p>
         <div class="pst"><span class="ptag">Python</span><span class="ptag">scikit-learn</span><span class="ptag">Pandas</span><span class="ptag">Kepler Dataset</span></div>
         <a href="LIEN_GITHUB_PROJET3" target="_blank" class="pglink">⌥ GitHub</a>
       </div>
     </div>
 
     <div class="pc rv">
-      <div class="pi"><img src="project4.jpeg" alt="Visualisation IK Analytique et Numerique"><div class="pigrid"></div></div>
+      <div class="pi"><img src="project4.jpeg" alt="IK Explorer"><div class="pigrid"></div></div>
       <div class="pb">
         <div class="pnum">04</div>
-        <h3 class="ptit" data-fr="IK Explorer - Cinematique Inverse Interactive" data-en="IK Explorer - Interactive Inverse Kinematics">IK Explorer - Cinematique Inverse Interactive</h3>
-        <div class="pctx" data-fr="Modelisation DH - Methodes analytique et numerique" data-en="DH Modelling - Analytical and numerical methods">Modelisation DH - Methodes analytique et numerique</div>
-        <p class="pdesc" data-fr="Derivation et implementation from scratch de deux solveurs IK bases sur les parametres DH : methode analytique (formules fermees) et methode numerique (Newton-Raphson / Jacobien). Visualisation 3D interactive sous matplotlib : curseurs de joints pour observer les variations en temps reel, saisie de position cible pour comparer comment chaque methode amene le robot a la position et visualiser les limites de chacune. Documentation detaillee du cheminement mathematique." data-en="From-scratch derivation and implementation of two IK solvers based on DH parameters: analytical method (closed-form) and numerical method (Newton-Raphson / Jacobian). Interactive 3D visualization with matplotlib: joint sliders to observe real-time variations, target position input to compare how each method reaches the pose and visualize their limits. Detailed documentation of the mathematical derivation.">Derivation et implementation from scratch de deux solveurs IK bases sur les parametres DH : methode analytique et numerique (Newton-Raphson / Jacobien). Visualisation 3D interactive matplotlib avec curseurs de joints et saisie de position cible pour comparer les deux methodes et observer leurs limites.</p>
+        <h3 class="ptit"
+          data-fr="IK Explorer - Cinematique Inverse Interactive"
+          data-en="IK Explorer - Interactive Inverse Kinematics">
+          IK Explorer - Cinematique Inverse Interactive
+        </h3>
+        <div class="pctx"
+          data-fr="Modelisation DH - Methodes analytique et numerique"
+          data-en="DH Modelling - Analytical and numerical methods">
+          Modelisation DH - Methodes analytique et numerique
+        </div>
+        <p class="pdesc"
+          data-fr="Derivation et implementation from scratch de deux solveurs IK bases sur les parametres DH : methode analytique (formules fermees) et methode numerique (Newton-Raphson / Jacobien). Visualisation 3D interactive sous matplotlib : curseurs de joints pour observer les variations en temps reel, saisie de position cible pour comparer comment chaque methode amene le robot a la position et visualiser les limites de chacune."
+          data-en="From-scratch derivation and implementation of two IK solvers based on DH parameters: analytical method (closed-form) and numerical method (Newton-Raphson / Jacobian). Interactive 3D visualization with matplotlib: joint sliders to observe real-time variations, target position input to compare how each method reaches the pose and visualize their limits.">
+          Derivation et implementation from scratch de deux solveurs IK bases sur les parametres DH : methode analytique et numerique (Newton-Raphson / Jacobien). Visualisation 3D interactive matplotlib avec curseurs de joints et saisie de position cible pour comparer les deux methodes et observer leurs limites.
+        </p>
         <div class="pst"><span class="ptag">Python</span><span class="ptag">DH Parameters</span><span class="ptag">Matplotlib</span><span class="ptag">Newton-Raphson</span><span class="ptag">Jacobien</span></div>
         <a href="LIEN_GITHUB_PROJET4" target="_blank" class="pglink">⌥ GitHub</a>
       </div>
@@ -333,13 +420,17 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
 
 <section id="other">
   <div class="sl" data-fr="03b - Autres projets" data-en="03b - Other projects">03b - Autres projets</div>
-  <h2 class="st rv" data-fr="..." data-en="Side projects">...</h2>
+  <h2 class="st rv" data-fr="Projets secondaires" data-en="Side projects">Projets secondaires</h2>
   <div class="og">
     <div class="oc rv">
       <img class="oc-img" src="other1.jpeg" alt="Console ESP32">
       <div class="oc-body">
         <div class="otit" data-fr="Console 9 jeux ESP32" data-en="ESP32 9-Game Console">Console 9 jeux ESP32</div>
-        <p class="odesc" data-fr="Console multi-jeux construite en 24h. 1er Prix Arduino Days 2026, equipe HEPHAESTUS." data-en="Multi-game console built in 24h. 1st Prize Arduino Days 2026, team HEPHAESTUS.">Console multi-jeux construite en 24h. 1er Prix Arduino Days 2026, equipe HEPHAESTUS.</p>
+        <p class="odesc"
+          data-fr="Console multi-jeux construite en 24h. 1er Prix Arduino Days 2026, equipe HEPHAESTUS."
+          data-en="Multi-game console built in 24h. 1st Prize Arduino Days 2026, team HEPHAESTUS.">
+          Console multi-jeux construite en 24h. 1er Prix Arduino Days 2026, equipe HEPHAESTUS.
+        </p>
         <div class="tags"><span class="tag">ESP32</span><span class="tag">C/C++</span><span class="tag">CAO Electronique</span></div>
       </div>
     </div>
@@ -347,7 +438,11 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
       <img class="oc-img" src="other2.jpeg" alt="Vehicule Robotique">
       <div class="oc-body">
         <div class="otit" data-fr="Vehicule Robotique Telecammande" data-en="Remote-Controlled Robot">Vehicule Robotique Telecammande</div>
-        <p class="odesc" data-fr="Robot mobile a commande sans fil. Architecture materielle complete, firmware C++ embarque temps reel." data-en="Wireless mobile robot. Full hardware architecture, real-time embedded C++ firmware.">Robot mobile a commande sans fil. Architecture materielle complete, firmware C++ embarque temps reel.</p>
+        <p class="odesc"
+          data-fr="Robot mobile a commande sans fil. Architecture materielle complete, firmware C++ embarque temps reel."
+          data-en="Wireless mobile robot. Full hardware architecture, real-time embedded C++ firmware.">
+          Robot mobile a commande sans fil. Architecture materielle complete, firmware C++ embarque temps reel.
+        </p>
         <div class="tags"><span class="tag">C++</span><span class="tag">Arduino</span><span class="tag">Bluetooth HC-05</span></div>
       </div>
     </div>
@@ -355,7 +450,11 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
       <img class="oc-img" src="other3.jpeg" alt="Bras Hydraulique">
       <div class="oc-body">
         <div class="otit" data-fr="Bras Hydraulique en Carton" data-en="Cardboard Hydraulic Arm">Bras Hydraulique en Carton</div>
-        <p class="odesc" data-fr="Bras mecanique hydraulique a deux outils : gripper + benne godet. Conception et assemblage physique complet." data-en="Two-tool hydraulic arm: gripper + bucket scoop. Full physical design and assembly.">Bras mecanique hydraulique a deux outils : gripper + benne godet. Conception et assemblage physique complet.</p>
+        <p class="odesc"
+          data-fr="Bras mecanique hydraulique a deux outils : gripper + benne godet. Conception et assemblage physique complet."
+          data-en="Two-tool hydraulic arm: gripper + bucket scoop. Full physical design and assembly.">
+          Bras mecanique hydraulique a deux outils : gripper + benne godet. Conception et assemblage physique complet.
+        </p>
         <div class="tags"><span class="tag">Mecanique</span><span class="tag">Hydraulique</span><span class="tag">Prototypage</span></div>
       </div>
     </div>
@@ -363,7 +462,11 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
       <img class="oc-img" src="other4.jpeg" alt="Radar Arduino">
       <div class="oc-body">
         <div class="otit" data-fr="Radar de Surveillance" data-en="Surveillance Radar">Radar de Surveillance</div>
-        <p class="odesc" data-fr="Radar de detection perimetrique par capteur ultrasonique avec visualisation temps reel." data-en="Perimetric detection radar with real-time visualization.">Radar de detection perimetrique par capteur ultrasonique avec visualisation temps reel.</p>
+        <p class="odesc"
+          data-fr="Radar de detection perimetrique par capteur ultrasonique avec visualisation temps reel."
+          data-en="Perimetric detection radar with real-time visualization.">
+          Radar de detection perimetrique par capteur ultrasonique avec visualisation temps reel.
+        </p>
         <div class="tags"><span class="tag">Arduino</span><span class="tag">Ultrasonique</span><span class="tag">Processing</span></div>
       </div>
     </div>
@@ -374,7 +477,11 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
   <div class="ci">
     <div class="sl" style="justify-content:center" data-fr="04 - Contact" data-en="04 - Contact">04 - Contact</div>
     <h2 class="st rv" data-fr="Travaillons ensemble" data-en="Let's work together">Travaillons ensemble</h2>
-    <p class="rv" data-fr="Etudiant ingenieur disponible pour des collaborations, stages et projets de recherche." data-en="Engineering student available for collaborations, internships and research projects.">Etudiant ingenieur disponible pour des collaborations, stages et projets de recherche.</p>
+    <p class="rv"
+      data-fr="Etudiant ingenieur disponible pour des collaborations, stages et projets de recherche."
+      data-en="Engineering student available for collaborations, internships and research projects.">
+      Etudiant ingenieur disponible pour des collaborations, stages et projets de recherche.
+    </p>
     <a href="mailto:okedonald790@gmail.com" class="cemail rv">okedonald790@gmail.com</a>
     <div class="cls rv">
       <a href="https://github.com/doriqu" target="_blank" class="cl"><span>&#8997;</span> GitHub</a>
@@ -390,6 +497,7 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
 </footer>
 
 <script>
+/* ── Curseur custom (desktop only) ── */
 const cur=document.getElementById('cur'),curR=document.getElementById('curR');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
@@ -398,12 +506,33 @@ document.querySelectorAll('a,button,.pc,.sk,.oc').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.5)';curR.style.transform='translate(-50%,-50%) scale(1.5)';curR.style.borderColor='var(--gold)'});
   el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';curR.style.transform='translate(-50%,-50%) scale(1)';curR.style.borderColor='var(--amb)'});
 });
+
+/* ── Scroll reveal ── */
 const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('v'),i*70);obs.unobserve(e.target)}});},{threshold:.1});
 document.querySelectorAll('.rv').forEach(r=>obs.observe(r));
 
+/* ── Menu hamburger ── */
+let menuOpen=false;
+function toggleMob(){
+  menuOpen=!menuOpen;
+  document.getElementById('mobMenu').classList.toggle('open',menuOpen);
+  document.getElementById('hbg').classList.toggle('open',menuOpen);
+  document.body.style.overflow=menuOpen?'hidden':'';
+}
+function closeMob(){
+  menuOpen=false;
+  document.getElementById('mobMenu').classList.remove('open');
+  document.getElementById('hbg').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+/* ── Changement de langue ── */
+let lang='fr';
 function tl(){
   lang=lang==='fr'?'en':'fr';
-  document.getElementById('lbtn').textContent=lang==='fr'?'EN':'FR';
+  const label=lang==='fr'?'EN':'FR';
+  document.getElementById('lbtn').textContent=label;
+  document.getElementById('mobLbtn').textContent=label;
   document.documentElement.lang=lang;
   document.querySelectorAll('[data-fr]').forEach(el=>{
     const t=el.getAttribute('data-'+lang);
