@@ -42,6 +42,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .mob-menu a:hover{color:var(--amb)}
 .mob-lb{font-family:var(--Mf);font-size:.85rem;background:var(--faint);color:var(--amb);border:1px solid #5a3e22;padding:.5rem 1.4rem;border-radius:2px;cursor:pointer;letter-spacing:.14em;margin-top:.5rem;transition:all .2s}
 .mob-lb:hover{background:var(--amb);color:var(--bg)}
+.mob-close{position:absolute;top:1.2rem;right:1.4rem;background:none;border:none;color:var(--amb);font-size:1.6rem;cursor:pointer;line-height:1;padding:.3rem .5rem;transition:color .2s}
+.mob-close:hover{color:var(--gold)}
 
 /* ── HERO ── */
 #hero{min-height:100vh;display:flex;align-items:center;padding:7rem 3rem 4rem;position:relative;overflow:hidden}
@@ -219,6 +221,7 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
 
 <!-- MENU MOBILE DRAWER -->
 <div class="mob-menu" id="mobMenu">
+  <button class="mob-close" onclick="closeMob()" aria-label="Fermer">✕</button>
   <a href="#about" onclick="closeMob()" data-fr="A propos" data-en="About">A propos</a>
   <a href="#engagements" onclick="closeMob()" data-fr="Engagements" data-en="Involvement">Engagements</a>
   <a href="#skills" onclick="closeMob()" data-fr="Competences" data-en="Skills">Competences</a>
