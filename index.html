@@ -213,11 +213,18 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
   .hname{font-size:2rem}
   .bp,.bo{padding:.65rem 1.2rem;font-size:.68rem}
 }
+
+/* ── Retour en haut ── */
+.totop{position:fixed;bottom:1.8rem;right:1.8rem;width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--amb);color:var(--amb);display:flex;align-items:center;justify-content:center;font-size:1.1rem;cursor:pointer;z-index:90;opacity:0;transform:translateY(12px);pointer-events:none;transition:all .3s;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.totop.show{opacity:1;transform:translateY(0);pointer-events:all}
+.totop:hover{background:var(--amb);color:var(--bg);transform:translateY(-3px)}
 </style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
 <div class="curR" id="curR"></div>
+
+<button class="totop" id="totop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">↑</button>
 
 <!-- MENU MOBILE DRAWER -->
 <div class="mob-menu" id="mobMenu">
@@ -227,7 +234,10 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
   <a href="#skills" onclick="closeMob()" data-fr="Compétences" data-en="Skills">Compétences</a>
   <a href="#projects" onclick="closeMob()" data-fr="Projets" data-en="Projects">Projets</a>
   <a href="#contact" onclick="closeMob()" data-fr="Contact" data-en="Contact">Contact</a>
-  <button class="mob-lb" id="mobLbtn" onclick="tl()">EN</button>
+  <div style="display:flex;gap:.5rem;margin-top:.5rem">
+    <button class="mob-lb" id="mobLbtnFr" onclick="setLang('fr')" style="opacity:1">FR</button>
+    <button class="mob-lb" id="mobLbtnEn" onclick="setLang('en')" style="opacity:.45">EN</button>
+  </div>
 </div>
 
 <nav>
@@ -238,7 +248,10 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
     <li><a href="#skills" data-fr="Compétences" data-en="Skills">Compétences</a></li>
     <li><a href="#projects" data-fr="Projets" data-en="Projects">Projets</a></li>
     <li><a href="#contact" data-fr="Contact" data-en="Contact">Contact</a></li>
-    <li><button class="lb" id="lbtn" onclick="tl()">EN</button></li>
+    <li style="display:flex;gap:.4rem;align-items:center">
+      <button class="lb" id="lbtnFr" onclick="setLang('fr')" style="opacity:1">FR</button>
+      <button class="lb" id="lbtnEn" onclick="setLang('en')" style="opacity:.4">EN</button>
+    </li>
   </ul>
   <button class="hbg" id="hbg" onclick="toggleMob()" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -257,9 +270,9 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
       <h1 class="hname">Donald<br><span>OKE</span></h1>
       <p class="htitle" data-fr="Systèmes Embarqués et Robotique" data-en="Embedded Systems and Robotics">Systèmes Embarqués et Robotique</p>
       <p class="hv"
-        data-fr="Je construis les briques technologiques des systèmes de demain : là où calcul, communication et monde physique fusionnent en un seul organisme cohérent. Ma vision : des systèmes autonomes, résilients, capables de se coordonner et de survivre sous adversité, au service de l'Afrique."
-        data-en="I build the technological foundations of tomorrow's systems: where computation, communication and the physical world merge into one coherent organism. My vision: autonomous and resilient systems capable of coordinating and surviving under adversity, in service of Africa.">
-        Je construis les briques technologiques des systèmes de demain : là où calcul, communication et monde physique fusionnent en un seul organisme cohérent. Ma vision : des systèmes autonomes, résilients, capables de se coordonner et de survivre sous adversité, au service de l'Afrique.
+        data-fr="Passionné par les systèmes qui pensent et qui bougent. J'apprends en construisant — robotique, électronique embarquée, IA. <em>&ldquo;Un essaim n'a pas de chef. Il a des règles.&rdquo; Une fourmi ne connaît pas la colonie — et pourtant la colonie pense. Une coordination qui est au cœur de ma passion.</em>"
+        data-en="Driven by systems that think and move. I learn by building — robotics, embedded electronics, AI. <em>&ldquo;A swarm has no leader. It has rules.&rdquo; An ant doesn't know the colony — yet the colony thinks. A coordination that is at the heart of my passion.</em>">
+        Passionné par les systèmes qui pensent et qui bougent. J'apprends en construisant — robotique, électronique embarquée, IA. <em>&ldquo;Un essaim n'a pas de chef. Il a des règles.&rdquo; Une fourmi ne connaît pas la colonie — et pourtant la colonie pense. Une coordination qui est au cœur de ma passion.</em>
       </p>
       <div class="hcta">
         <a href="#projects" class="bp" data-fr="Voir mes projets" data-en="View my projects">Voir mes projets</a>
@@ -343,11 +356,11 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
       <div class="pb">
         <div class="pnum">01</div>
         <h3 class="ptit" data-fr="Path Tracking - Stanley Controller" data-en="Path Tracking - Stanley Controller">Path Tracking - Stanley Controller</h3>
-        <div class="pctx" data-fr="Simulation ROS2 / Docker" data-en="ROS2 / Docker Simulation">Simulation ROS2 / Docker</div>
+        <div class="pctx" data-fr="Projet communautaire ma64 · En cours" data-en="ma64 Community Project · In Progress">Projet communautaire ma64 · En cours</div>
         <p class="pdesc"
-          data-fr="Package ROS2 permettant à un robot mobile de suivre un humain en temps réel via le contrôleur Stanley. Conteneurisation complète sous Docker Ubuntu, pull request soumis sur dépôt collaboratif."
-          data-en="ROS2 package enabling a mobile robot to follow a human in real time using the Stanley controller. Full containerization under Docker Ubuntu, pull request submitted on collaborative repository.">
-          Package ROS2 permettant à un robot mobile de suivre un humain en temps réel via le contrôleur Stanley. Conteneurisation complète sous Docker Ubuntu, pull request soumis sur dépôt collaboratif.
+          data-fr="Contribution au projet communautaire ma64 : package ROS2 de suivi de cible humaine via le contrôleur Stanley. Algorithme implémenté et testé en local — premiers tests validés. Conteneurisation Docker Ubuntu finalisée. Merge en cours sur le dépôt principal."
+          data-en="Contribution to the ma64 community project: ROS2 package for human target tracking via the Stanley controller. Algorithm implemented and locally tested — first tests validated. Docker Ubuntu containerization complete. Merge in progress on the main repository.">
+          Contribution au projet communautaire ma64 : package ROS2 de suivi de cible humaine via le contrôleur Stanley. Algorithme implémenté et testé en local — premiers tests validés. Conteneurisation Docker Ubuntu finalisée. Merge en cours sur le dépôt principal.
         </p>
         <div class="pst"><span class="ptag">ROS2</span><span class="ptag">Python</span><span class="ptag">Docker</span><span class="ptag">GitHub</span></div>
       </div>
@@ -531,17 +544,21 @@ function closeMob(){
 
 /* ── Changement de langue ── */
 let lang='fr';
-function tl(){
-  lang=lang==='fr'?'en':'fr';
-  const label=lang==='fr'?'EN':'FR';
-  document.getElementById('lbtn').textContent=label;
-  document.getElementById('mobLbtn').textContent=label;
-  document.documentElement.lang=lang;
+function setLang(l){
+  lang=l;
+  document.documentElement.lang=l;
+  document.getElementById('lbtnFr').style.opacity    = l==='fr'?'1':'0.4';
+  document.getElementById('lbtnEn').style.opacity    = l==='en'?'1':'0.4';
+  document.getElementById('mobLbtnFr').style.opacity = l==='fr'?'1':'0.45';
+  document.getElementById('mobLbtnEn').style.opacity = l==='en'?'1':'0.45';
   document.querySelectorAll('[data-fr]').forEach(el=>{
-    const t=el.getAttribute('data-'+lang);
+    const t=el.getAttribute('data-'+l);
     if(t)el.innerHTML=t;
   });
 }
+/* ── Retour en haut ── */
+const _totop=document.getElementById('totop');
+window.addEventListener('scroll',()=>{ _totop.classList.toggle('show', window.scrollY>500); });
 </script>
 </body>
 </html>
