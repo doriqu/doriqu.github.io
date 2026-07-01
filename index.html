@@ -218,6 +218,10 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
 .totop{position:fixed;bottom:1.8rem;right:1.8rem;width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--amb);color:var(--amb);display:flex;align-items:center;justify-content:center;font-size:1.1rem;cursor:pointer;z-index:90;opacity:0;transform:translateY(12px);pointer-events:none;transition:all .3s;box-shadow:0 8px 24px rgba(0,0,0,.4)}
 .totop.show{opacity:1;transform:translateY(0);pointer-events:all}
 .totop:hover{background:var(--amb);color:var(--bg);transform:translateY(-3px)}
+
+/* ── Bouton télécharger CV ── */
+.bcv{font-family:var(--Mf);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.7rem;background:transparent;color:var(--mut);text-decoration:none;border:1px solid var(--faint);cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem}
+.bcv:hover{border-color:var(--amb);color:var(--amb)}
 </style>
 </head>
 <body>
@@ -277,6 +281,7 @@ footer p{font-family:var(--Mf);font-size:.6rem;color:var(--mut);letter-spacing:.
       <div class="hcta">
         <a href="#projects" class="bp" data-fr="Voir mes projets" data-en="View my projects">Voir mes projets</a>
         <a href="#contact" class="bo" data-fr="Me contacter" data-en="Contact me">Me contacter</a>
+        <a href="CV_OKE_Donald.pdf" download class="bcv" data-fr="Télécharger CV" data-en="Download CV">↓ CV</a>
       </div>
     </div>
   </div>
