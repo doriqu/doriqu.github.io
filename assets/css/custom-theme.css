@@ -109,3 +109,13 @@ html{font-variant-ligatures:none}
 .custom-site :is(p,li,time,span){overflow-wrap:normal}
 #navbar{background:rgba(10,10,10,.98)!important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 #navbar .navbar-collapse-main,#navbar .navbar-collapse-main.show{background:rgba(10,10,10,.98)!important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+
+/* About hero: stable two-column layout; following sections remain full width. */
+.about-editorial{display:grid;grid-template-columns:minmax(0,1fr) 300px;column-gap:48px;align-items:start;padding-top:24px}.about-editorial .bio-copy{grid-column:1;grid-row:1;min-height:0;display:block}.about-editorial .profile-photo{grid-column:2;grid-row:1;width:300px;margin:0}.about-editorial .profile-photo img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 20%;border-radius:12px;border:1px solid var(--border)}.about-editorial .hero-label{margin:0 0 14px;max-width:none}.about-editorial .bio-copy>p{max-width:none;line-height:1.65;margin:0 0 16px}.about-editorial .hero-name{max-width:none}.about-editorial .site-swarm{z-index:0}.about-editorial>*:not(.site-swarm){position:relative;z-index:1}@media(max-width:899px){.about-editorial{grid-template-columns:1fr;row-gap:24px}.about-editorial .profile-photo{grid-column:1;grid-row:1;width:min(100%,240px);margin:0 auto}.about-editorial .bio-copy{grid-column:1;grid-row:2}}
+
+/* Keep the portrait beside the About hero regardless of grid auto-placement. */
+.about-editorial{display:grid!important;grid-template-columns:minmax(0,1fr) 300px!important;column-gap:48px!important;align-items:start!important}.about-editorial>.profile-photo{grid-column:2!important;grid-row:1!important;width:300px!important;margin:0!important;align-self:start!important}.about-editorial>.bio-copy{grid-column:1!important;grid-row:1!important;min-width:0!important}.about-editorial>.site-swarm{position:absolute!important;inset:0 0 auto!important;width:100%!important;height:440px!important;pointer-events:none!important}@media(max-width:899px){.about-editorial{grid-template-columns:minmax(0,1fr)!important}.about-editorial>.profile-photo{grid-column:1!important;grid-row:1!important;width:min(100%,240px)!important;margin:0 auto!important}.about-editorial>.bio-copy{grid-column:1!important;grid-row:2!important}}
+
+/* About uses its hero as the page heading: hide the theme title block. */
+body:has(.about-editorial) .post-header{display:none!important}
+.about-editorial>.profile-photo{grid-row:1!important;align-self:start!important}
