@@ -1,34 +1,9 @@
 ---
-layout: about
-title: about
+layout: page
+title: About
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
-
-profile:
-  align: right
-  image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
-  more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
-
-selected_papers: true # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page
-
-announcements:
-  enabled: true # includes a list of news items
-  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
-
-latest_posts:
-  enabled: true
-  scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
-  limit: 3 # leave blank to include all the blog posts
+nav: false
+nav_order: 1
+description: Electrical Engineering student at EPAC, University of Abomey-Calavi, Benin.
 ---
-
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](https://www.reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
-
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
-
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+<link rel="stylesheet" href="/assets/css/custom-theme.css"><div class="custom-site about-editorial"><canvas class="site-swarm" data-swarm aria-hidden="true"></canvas><figure class="profile-float"><img src="/assets/img/donald-oke.jpg" alt="Portrait of Donald OKE"><figcaption>EPAC, University of Abomey-Calavi / Benin</figcaption></figure><section class="bio-copy"><p class="eyebrow hero-label">EPAC · UNIVERSITY OF ABOMEY-CALAVI · BENIN</p><h1 class="hero-name">Donald Riquelme Djidjoho OKE</h1><p class="hero-role" data-rotating-phrase aria-live="polite">Electrical Engineering student</p><p>I am an Electrical Engineering student at EPAC, University of Abomey-Calavi (Benin), specializing in embedded systems and robotics. I learn by building: from an automatic color-sorting line to inverse-kinematics solvers written from scratch. [TODO: rewrite in my own words]</p><p>What drives me is swarm robotics: how simple local rules, inspired by colonies of ants or bees, can produce useful collective behavior, with or without a central controller. I want to apply it to autonomous rover swarms for space exploration, industrial automation and rapid emergency response. [TODO: rewrite in my own words]</p><p>I am looking for a master's program in robotics and multi-robot systems starting in [TODO: intake year]. [TODO: rewrite in my own words]</p></section><section class="about-section"><div class="section-heading"><span class="eyebrow">01</span><h2>Research interests</h2></div><div class="research-grid"><article class="surface-card"><h3>Swarm robotics</h3><p>Bio-inspired emergence, decentralized and centralized coordination.</p></article><article class="surface-card"><h3>Multi-agent systems</h3><p>Coordination and resilience in systems of multiple agents.</p></article><article class="surface-card"><h3>Space exploration</h3><p>Autonomous systems for exploration beyond Earth.</p></article></div></section><section class="about-section"><div class="section-heading"><span class="eyebrow">02</span><h2>News</h2></div><div class="news-list">{% assign recent_news = site.news | sort: 'month' | reverse %}{% for item in recent_news limit:4 %}<a class="news-row" href="{{ item.link }}"><time>{{ item.display_date }}</time><span>{{ item.title }}</span></a>{% endfor %}</div></section><section class="about-section skills-teaser"><div class="section-heading"><span class="eyebrow">03</span><h2>Skills</h2></div><p>Embedded systems · Robotics and control · Software and tools</p><a class="button" href="/skills/">See all skills</a></section><section class="social-bottom about-section" aria-label="Contact and social links"><div class="section-heading"><span class="eyebrow">04</span><h2>Connect</h2></div><nav class="social-icons" aria-label="Social links"><a href="mailto:okedonald790@gmail.com" aria-label="Email"><span aria-hidden="true">✉</span><small>Email</small></a><a href="https://github.com/doriqu" aria-label="GitHub"><span aria-hidden="true">GH</span><small>GitHub</small></a><a href="https://www.linkedin.com/in/donald-oke/" aria-label="LinkedIn"><span aria-hidden="true">in</span><small>LinkedIn</small></a><a href="https://instagram.com/doriqu26" aria-label="Instagram"><span aria-hidden="true">◎</span><small>Instagram</small></a><a href="/cv/" aria-label="CV"><span aria-hidden="true">CV</span><small>CV</small></a></nav><p class="contact-note">The best way to reach me is by email. I am open to research collaborations and master's opportunities.</p></section></div>

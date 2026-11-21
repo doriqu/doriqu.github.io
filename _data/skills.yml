@@ -1,0 +1,6 @@
+- group: Embedded systems
+  items: [Arduino, ESP32, ESP8266, C/C++, UART, I2C, SPI, Bluetooth, BLE, Wi-Fi, LoRaWAN]
+- group: Robotics and control
+  items: [ROS 2, Gazebo, Forward kinematics, Inverse kinematics, OpenCV, NumPy]
+- group: Software and tools
+  items: [Python, MATLAB, Git/GitHub, Docker, Linux, KiCad, XFLR5]

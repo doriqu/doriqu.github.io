@@ -1,9 +1,9 @@
 ---
 layout: default
 permalink: /blog/
-title: blog
+title: Blog
 nav: true
-nav_order: 1
+nav_order: 8
 pagination:
   enabled: true
   collection: posts
@@ -194,3 +194,5 @@ pagination:
 {% endif %}
 
 </div>
+
+<link rel="stylesheet" href="/assets/css/custom-theme.css">
