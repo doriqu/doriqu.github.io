@@ -1,5 +1,5 @@
 ---
-demo: /assets/video/color-cube-sorter-preview.mp4
+demo: /assets/video/color-cube-sorter-demo.mp4
 preview: /assets/video/color-cube-sorter-preview.mp4
 layout: page
 title: "Color Cube Sorter"

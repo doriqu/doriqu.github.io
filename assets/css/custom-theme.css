@@ -147,3 +147,6 @@ body:has(.about-editorial) .post-header{display:none!important}
 .project-detail-pager{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin:48px 0 0;padding-top:20px;border-top:1px solid var(--border)}
 .project-detail-pager .button{max-width:32%;text-align:center}
 @media(max-width:600px){.project-detail-pager .button{max-width:100%;flex:1 1 100%}}
+.site-swarm{position:absolute;top:0;left:0;width:100%;height:280px;z-index:0;pointer-events:none;opacity:.12;mask-image:linear-gradient(to bottom,#000 0%,transparent 100%)}.about-editorial .site-swarm{height:440px;mask-image:none}.custom-site{position:relative}.custom-site>*:not(.site-swarm){position:relative;z-index:1}.swarm-toggle{display:block;margin:0 auto 12px;padding:6px 10px;border:1px solid #555;border-radius:var(--radius);background:transparent;color:var(--muted);font:500 .62rem var(--font-mono);cursor:pointer}
+.post{position:relative}.post>.site-swarm{position:absolute;top:0;left:0;width:100%;height:280px;pointer-events:none;opacity:.12;mask-image:linear-gradient(to bottom,#000,transparent)}
+.project-detail{width:min(900px,100%);margin:0 auto}.project-detail-media{position:relative;z-index:1}

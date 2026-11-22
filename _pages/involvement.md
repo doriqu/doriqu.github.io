@@ -1,4 +1,5 @@
 ---
+swarm: network
 description: "Leadership and volunteer roles."
 layout: page
 title: "Involvement"
@@ -6,7 +7,7 @@ permalink: /involvement/
 nav: true
 nav_order: 6
 ---
-<link rel="stylesheet" href="/assets/css/custom-theme.css"><div class="custom-site timeline-list">
+<link rel="stylesheet" href="/assets/css/custom-theme.css"><div class="custom-site timeline-list"><canvas class="site-swarm" data-swarm="network" aria-hidden="true"></canvas>
 <article class="timeline-entry"><div class="entry-top"><h2>IEEE UAC Student Branch</h2><time>Sep 2026 – Present</time></div><p class="entry-subtitle">Secretary · University of Abomey-Calavi · Benin</p><ul><li>Serves as secretary of the student branch.</li><li>Helps organize masterclasses on technical topics for students.</li><li>Helps organize hands-on workshops where members practice and can earn certificates.</li></ul><p class="mono"><span class="todo">[TODO: add masterclass/workshop topics and numbers]</span></p></article>
 <article class="timeline-entry"><div class="entry-top"><h2>WAAW Foundation UAC Chapter, Benin</h2><time>Nov 2026 – Present</time></div><p class="entry-subtitle">Member · University of Abomey-Calavi</p><p>Member of the university-based chapter. Supporting STEM education for African women. <span class="todo">[TODO: verify]</span></p></article>
 <article class="timeline-entry"><div class="entry-top"><h2>MA64 Robotics</h2><time>Aug 2026 – Present</time></div><p class="entry-subtitle">Member</p><p>Participating in the Fall School on robotic arm manipulation. <span class="todo">[TODO: verify]</span></p></article>
