@@ -65,6 +65,40 @@
     startRotation();
   }
 
+  const previewCards = [...document.querySelectorAll('.project-card')];
+  const previewVideos = new Set();
+  const motionAllowed = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const activatePreview = async (card) => {
+    if (!motionAllowed) return;
+    const video = card.querySelector('.project-preview');
+    if (!video) return;
+    if (!video.src) video.src = video.dataset.src;
+    video.classList.add('is-loaded');
+    previewVideos.forEach((other) => { if (other !== video) { other.pause(); other.closest('.project-card')?.classList.remove('preview-playing'); } });
+    previewVideos.add(video);
+    try { await video.play(); card.classList.add('preview-playing'); } catch (_) { /* poster remains visible */ }
+  };
+  const deactivatePreview = (card) => {
+    const video = card.querySelector('.project-preview');
+    if (!video) return;
+    video.pause();
+    card.classList.remove('preview-playing');
+  };
+  previewCards.forEach((card) => {
+    card.addEventListener('mouseenter', () => activatePreview(card));
+    card.addEventListener('mouseleave', () => deactivatePreview(card));
+    card.addEventListener('focusin', () => activatePreview(card));
+    card.addEventListener('focusout', (event) => { if (!card.contains(event.relatedTarget)) deactivatePreview(card); });
+  });
+  if (motionAllowed && 'IntersectionObserver' in window && matchMedia('(hover: none)').matches) {
+    let activeTouchCard = null;
+    const touchObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.intersectionRatio >= 0.6) { activeTouchCard = entry.target; activatePreview(entry.target); }
+      else if (activeTouchCard === entry.target) { deactivatePreview(entry.target); activeTouchCard = null; }
+    }), { threshold: [0, 0.6, 1] });
+    previewCards.forEach((card) => touchObserver.observe(card));
+  }
+
   document.querySelectorAll('[data-project-toggle]').forEach((button) => {
     button.addEventListener('click', () => {
       const expand = button.getAttribute('aria-expanded') !== 'true';

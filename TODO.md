@@ -13,3 +13,5 @@
 - `_data/socials.yml`: confirm final LinkedIn URL.
 - `_pages/awards.md`: provide certificate files if they should be linked.
 - `assets/pdf/CV_Donald_OKE.pdf`: confirm it is the current CV.
+- `_projects/1_color-cube-sorter.md`: provide a clean project photo; the current card uses the first frame of the README demo GIF as a temporary poster.
+- `_projects/1_color-cube-sorter.md`: replace the demo-derived poster with a cleaner owner-provided project photo.
