@@ -23,17 +23,31 @@ cv:
         location: Porto-Novo, Benin
         start_date: 2020
         end_date: 2023
-        highlights: [CAP (full name to confirm), 2022., DT (full name to confirm), 2023; Very good (Très bien)., Baccalauréat F3, 2023; Very good (Très bien).]
+        highlights:
+          [CAP (full name to confirm), 2022., DT (full name to confirm), 2023; Very good (Très bien)., Baccalauréat F3, 2023; Very good (Très bien).]
     Experience:
       - company: Sirius Space Association
         position: UAV Design Intern
         location: Cotonou (Sèmè City Open Park)
         start_date: 2026-08
         end_date: 2026-09
-        highlights: [Long-endurance fixed-wing surveillance drone design., Aerodynamic/stability study (XFLR5) and dynamic analysis (MATLAB)., Bill of materials, motor selection, power budget, battery sizing, electronic schematic (KiCad).]
+        highlights:
+          [
+            Long-endurance fixed-wing surveillance drone design.,
+            Aerodynamic/stability study (XFLR5) and dynamic analysis (MATLAB).,
+            Bill of materials,
+            motor selection,
+            power budget,
+            battery sizing,
+            electronic schematic (KiCad).,
+          ]
       - company: SBEE
         position: Electrical Maintenance Intern
         location: Porto-Novo
         start_date: 2021-08
         end_date: 2021-09
-        highlights: [Power-line and substation maintenance., Distribution equipment installation and damaged underground cable repairs on low- and medium-voltage networks.]
+        highlights:
+          [
+            Power-line and substation maintenance.,
+            Distribution equipment installation and damaged underground cable repairs on low- and medium-voltage networks.,
+          ]

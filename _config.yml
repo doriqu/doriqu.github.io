@@ -1,4 +1,3 @@
-
 # -----------------------------------------------------------------------------
 # Site settings
 # -----------------------------------------------------------------------------
@@ -8,7 +7,7 @@ first_name: Donald
 middle_name: Riquelme Djidjoho
 last_name: OKE
 contact_note: >
-    The best way to reach me is by email. I am open to research collaborations and master's opportunities.
+  The best way to reach me is by email. I am open to research collaborations and master's opportunities.
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   Electrical Engineering student at EPAC, University of Abomey-Calavi, Benin, working on embedded systems, robotics and multi-agent systems.
 footer_text: >
