@@ -1,0 +1,181 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Color Cube Sorter | Donald Riquelme Djidjoho OKE </title> <meta name="author" content="Donald Riquelme Djidjoho OKE"> <meta name="description" content="Electrical Engineering student at EPAC, University of Abomey-Calavi, Benin, working on embedded systems, robotics and multi-agent systems. "> <meta name="keywords" content="robotics, embedded systems, multi-agent systems, ROS2, electrical engineering"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 1100px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="/assets/img/donald-oke.jpg?v=764b5270b42d1d6311045c39f946ee02"> <link rel="apple-touch-icon" href="/assets/img/donald-oke.jpg?v=764b5270b42d1d6311045c39f946ee02"> <link rel="stylesheet" href="/assets/css/main.css?v=3116ba77db9ee1581d05bb3e86fbf7f1"> <link rel="canonical" href="https://doriqu.github.io/projects/color-cube-sorter/"> </head> <body class="fixed-top-nav sticky-bottom-footer"> <header> <div class="reading-progress" aria-hidden="true"></div> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container portfolio-shell"> <a class="navbar-brand title" href="/">Donald OKE</a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">About</a> </li> <li class="nav-item "> <a class="nav-link" href="/education/">Education</a> </li> <li class="nav-item active"> <a class="nav-link" href="/projects/">Projects</a> </li> <li class="nav-item "> <a class="nav-link" href="/experience/">Experience</a> </li> <li class="nav-item "> <a class="nav-link" href="/awards/">Awards &amp; Certifications</a> </li> <li class="nav-item "> <a class="nav-link" href="/involvement/">Involvement</a> </li> <li class="nav-item "> <a class="nav-link" href="/skills/">Skills</a> </li> <li class="nav-item "> <a class="nav-link" href="/blog/">Blog</a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV</a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search (Ctrl+K)" aria-label="Open search"> <span class="nav-link"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span> </button> </li> </ul> </div> </div> </nav> </header> <script defer src="/assets/js/custom.js"></script> <script defer src="/assets/js/swarm.js"></script> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Color Cube Sorter</h1> <p class="post-description"></p> </header> <article> <link rel="stylesheet" href="/assets/css/custom-theme.css"> <div class="custom-site project-detail"> <p class="eyebrow">Project 01 · Club project · I lead the club</p> <h1>Color Cube Sorter</h1> <p>Small-scale sorting line: cubes move on a conveyor, a camera identifies color, and a servo directs each cube to a bin.</p> <figure class="project-detail-media" id="demo"><video controls="" playsinline="" preload="metadata" poster="/assets/img/projects/color-cube-sorter-poster.jpg"><source src="/assets/video/color-cube-sorter-demo.mp4" type="video/mp4"></source></video></figure><h2>How it works</h2> <ol> <li>A start laser detects a cube and starts the conveyor.</li> <li>An ultrasonic sensor triggers the camera; HSV color identification is sent to the ESP32 master over UART.</li> <li>The conveyor carries each cube while its state is tracked.</li> <li>An end laser triggers the servo to position the bin.</li> <li>A calculated delay lets the cube reach the bin; counters and dashboard data update.</li> </ol> <p>At the documented defaults (24 rpm, 10 cm roller perimeter, 5 cm sensor-to-bin distance), belt speed is 4 cm/s and drop delay is 1250 ms.</p> <p>Hardware: ESP32 master, XIAO ESP32-S3 Sense, ultrasonic sensor, NEMA 17 stepper with TB6600 driver, SG90 servo, two laser/LDR barriers, I2C LCD and status LEDs. Unknown colors and emergency stops stop the belt; software debounce, an inactivity watchdog, persistent counters and non-blocking sorting logic support safe operation. The dashboard shows per-color and total counts, last item, timestamped log and a live chart. The README provides no numeric performance results.</p> <h2>My role</h2> <p>I lead the club that built this project. [TODO: what I personally designed or built]</p> <div class="tag-list"> <span class="tag">ESP32</span> <span class="tag">XIAO ESP32-S3 Sense</span> <span class="tag">Stepper motor</span> <span class="tag">Blynk</span> </div> <a class="button" href="https://github.com/doriqu/color-cube-sorter" rel="external nofollow noopener" target="_blank">GitHub ↗</a><nav class="project-detail-pager"><a class="button" href="/projects/">Back to projects</a><a class="button" rel="next" href="/projects/ik-explorer/">IK Explorer →</a></nav> </div> </article> </div> </div> <footer class="portfolio-footer" role="contentinfo"> <div class="container portfolio-shell"> <button class="swarm-toggle" type="button" data-swarm-toggle aria-pressed="false">Swarm · Pause</button> <p> © 2026 Donald Riquelme Djidjoho OKE · Built with <a href="https://jekyllrb.com/" rel="external nofollow noopener" target="_blank">Jekyll</a> and <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> </p> </div> <button class="scroll-to-top" id="portfolio-scroll-to-top" type="button" aria-label="Scroll to top" title="Scroll to top">↑</button> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "About",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-education",
+          title: "Education",
+          description: "Education in electrical engineering and technical studies.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/education/";
+          },
+        },{id: "nav-projects",
+          title: "Projects",
+          description: "Selected engineering and robotics projects.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
+        },{id: "nav-experience",
+          title: "Experience",
+          description: "Internships in UAV design and electrical maintenance.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/experience/";
+          },
+        },{id: "nav-awards-amp-certifications",
+          title: "Awards &amp; Certifications",
+          description: "Awards and certifications.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/awards/";
+          },
+        },{id: "nav-involvement",
+          title: "Involvement",
+          description: "Leadership and volunteer roles.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/involvement/";
+          },
+        },{id: "nav-skills",
+          title: "Skills",
+          description: "Embedded systems, robotics and software tools.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/skills/";
+          },
+        },{id: "nav-blog",
+          title: "Blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Curriculum vitae of Donald Riquelme Djidjoho OKE.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "news-",
+          title: '',
+          description: "",
+          section: "News",},{id: "news-",
+          title: '',
+          description: "",
+          section: "News",},{id: "news-",
+          title: '',
+          description: "",
+          section: "News",},{id: "news-",
+          title: '',
+          description: "",
+          section: "News",},{id: "projects-color-cube-sorter",
+          title: 'Color Cube Sorter',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/color-cube-sorter/";
+            },},{id: "projects-ik-explorer",
+          title: 'IK Explorer',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ik-explorer/";
+            },},{id: "projects-autonomous-robotic-arm-hiwonder-xarm",
+          title: 'Autonomous Robotic Arm (HiWonder xArm)',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/xarm-pick-and-place/";
+            },},{id: "projects-echo-lens",
+          title: 'Echo Lens',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/echo-lens/";
+            },},{id: "projects-path-tracking-stanley-controller-ma64",
+          title: 'Path Tracking: Stanley Controller (ma64)',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/stanley-controller/";
+            },},{id: "projects-9-game-esp32-console",
+          title: '9-Game ESP32 Console',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/esp32-console/";
+            },},{id: "projects-remote-controlled-robot-vehicle",
+          title: 'Remote-Controlled Robot Vehicle',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/remote-vehicle/";
+            },},{id: "projects-cardboard-hydraulic-arm",
+          title: 'Cardboard Hydraulic Arm',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/hydraulic-arm/";
+            },},{id: "projects-surveillance-radar",
+          title: 'Surveillance Radar',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/surveillance-radar/";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals/";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%6F%6B%65%64%6F%6E%61%6C%64%37%39%30@%67%6D%61%69%6C.%63%6F%6D", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/doriqu", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/donald-oke", "_blank");
+        },
+      },{
+        id: 'social-instagram',
+        title: 'Instagram',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://instagram.com/doriqu26", "_blank");
+        },
+      },{
+        id: 'social-cv',
+        title: 'CV',
+        section: 'Socials',
+        handler: () => {
+          window.open("/assets/pdf/CV_Donald_OKE.pdf", "_blank");
+        },
+      },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
