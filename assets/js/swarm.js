@@ -6,6 +6,8 @@
  * (Toussaint 1980). Links refresh every third animation frame.
  */
 (() => {
+  // About has its own ACO simulation; the other pages keep this lightweight swarm layer.
+  if (document.querySelector("[data-aco]")) return;
   let canvas = document.querySelector("[data-swarm]");
   const about = Boolean(document.querySelector(".about-editorial"));
   let pageHeader = document.querySelector(".post-header");
