@@ -1,0 +1,13 @@
+<script>
+  var storedTheme = null;
+  var appliedTheme = "dark";
+  try {
+    var t = localStorage.getItem("theme");
+    storedTheme = t;
+    appliedTheme = t === "light" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", appliedTheme);
+  } catch (e) {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+  console.info("[theme]", { stored: storedTheme, applied: appliedTheme });
+</script>

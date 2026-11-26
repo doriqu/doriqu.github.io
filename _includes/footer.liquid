@@ -33,11 +33,13 @@
 {% endif %}
 <footer class="portfolio-footer" role="contentinfo">
   <div class="container portfolio-shell">
-    <button class="swarm-toggle" type="button" data-swarm-toggle aria-pressed="false">Swarm · Pause</button>
     <p>
       © 2026 Donald Riquelme Djidjoho OKE · Built with <a href="https://jekyllrb.com/">Jekyll</a> and
       <a href="https://github.com/alshedivat/al-folio">al-folio</a>
     </p>
+    <button class="swarm-toggle" type="button" data-swarm-toggle aria-pressed="false" aria-label="Pause the background animation">
+      <span data-swarm-icon aria-hidden="true">⏸</span><span class="swarm-label">Swarm</span><span class="swarm-preset" aria-hidden="true">· formation</span>
+    </button>
   </div>
   <button class="scroll-to-top" id="portfolio-scroll-to-top" type="button" aria-label="Scroll to top" title="Scroll to top">↑</button>
 </footer>

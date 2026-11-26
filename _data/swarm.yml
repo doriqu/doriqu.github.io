@@ -1,9 +1,101 @@
-flock: { count: 64, speed: 0.45, separation: 0.8, alignment: 0.5, cohesion: 0.25, cursor_attraction: 0.08, link_distance: 68, trail: 0 }
-consensus: { count: 52, speed: 0.25, separation: 0.2, alignment: 0.9, cohesion: 0.7, cursor_attraction: 0, link_distance: 0, trail: 0 }
-formation: { count: 64, speed: 0.32, separation: 0.4, alignment: 0.6, cohesion: 0.3, cursor_attraction: 0, link_distance: 0, trail: 0 }
-trails: { count: 56, speed: 0.5, separation: 0.3, alignment: 0.3, cohesion: 0.3, cursor_attraction: 0.05, link_distance: 0, trail: 0.08 }
-aggregation: { count: 50, speed: 0.25, separation: 0.4, alignment: 0.2, cohesion: 0.7, cursor_attraction: 0, link_distance: 0, trail: 0 }
-network: { count: 56, speed: 0.3, separation: 0.5, alignment: 0.35, cohesion: 0.25, cursor_attraction: 0.02, link_distance: 78, trail: 0 }
-clusters: { count: 60, speed: 0.28, separation: 0.4, alignment: 0.45, cohesion: 0.8, cursor_attraction: 0, link_distance: 0, trail: 0 }
-drift: { count: 28, speed: 0.12, separation: 0, alignment: 0.1, cohesion: 0.1, cursor_attraction: 0, link_distance: 0, trail: 0 }
-minimal: { count: 16, speed: 0.12, separation: 0.2, alignment: 0.1, cohesion: 0.1, cursor_attraction: 0, link_distance: 0, trail: 0 }
+# Reynolds boids rules + K-nearest topological neighbourhoods; all presets use
+# a unit-disk communication graph pruned by the relative-neighbourhood rule.
+flock:
+  count: 64
+  speed: 0.45
+  separation: 0.8
+  alignment: 0.5
+  cohesion: 0.25
+  cursor_attraction: 0.08
+  neighbours_k: 7
+  comm_radius: 110
+  link_prune: rng
+  link_alpha: 0.20
+consensus:
+  count: 52
+  speed: 0.25
+  separation: 0.2
+  alignment: 0.9
+  cohesion: 0.7
+  cursor_attraction: 0
+  neighbours_k: 7
+  comm_radius: 110
+  link_prune: rng
+  link_alpha: 0.20
+formation:
+  count: 64
+  speed: 0.32
+  separation: 0.4
+  alignment: 0.6
+  cohesion: 0.3
+  cursor_attraction: 0
+  neighbours_k: 7
+  comm_radius: 110
+  link_prune: rng
+  link_alpha: 0.20
+flow:
+  count: 56
+  speed: 0.5
+  separation: 0.3
+  alignment: 0.3
+  cohesion: 0.3
+  cursor_attraction: 0.05
+  neighbours_k: 7
+  comm_radius: 110
+  link_prune: rng
+  link_alpha: 0.20
+aggregation:
+  count: 50
+  speed: 0.25
+  separation: 0.4
+  alignment: 0.2
+  cohesion: 0.7
+  cursor_attraction: 0
+  neighbours_k: 7
+  comm_radius: 110
+  link_prune: rng
+  link_alpha: 0.20
+network:
+  count: 56
+  speed: 0.3
+  separation: 0.5
+  alignment: 0.35
+  cohesion: 0.25
+  cursor_attraction: 0.02
+  neighbours_k: 7
+  comm_radius: 110
+  link_prune: rng
+  link_alpha: 0.20
+clusters:
+  count: 60
+  speed: 0.28
+  separation: 0.4
+  alignment: 0.45
+  cohesion: 0.8
+  cursor_attraction: 0
+  neighbours_k: 7
+  comm_radius: 110
+  link_prune: rng
+  link_alpha: 0.20
+drift:
+  count: 28
+  speed: 0.12
+  separation: 0
+  alignment: 0.1
+  cohesion: 0.1
+  cursor_attraction: 0
+  neighbours_k: 7
+  comm_radius: 110
+  link_prune: rng
+  link_alpha: 0.20
+minimal:
+  count: 16
+  speed: 0.12
+  separation: 0.2
+  alignment: 0.1
+  cohesion: 0.1
+  cursor_attraction: 0
+  neighbours_k: 7
+  comm_radius: 110
+  link_prune: rng
+  link_alpha: 0.20

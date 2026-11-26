@@ -26,42 +26,64 @@ has "involvement: club present" /involvement/ 'Club Informatique Industrielle'; 
 cnt "/cv/: one h1" /cv/ '<h1' 1; cnt "/skills/: one h1" /skills/ '<h1' 1
 for p in /awards/ /education/ /experience/ /involvement/; do n=$(get "$p"|grep -o 'class="timeline-list"'|wc -l); if [ "$p" = /awards/ ]; then [ "$n" -eq 2 ]&&ok "$p: two timeline lists"||ko "$p: found $n timeline lists, expected 2"; else [ "$n" -eq 1 ]&&ok "$p: one timeline list"||ko "$p: found $n timeline lists, expected 1"; fi; done
 no "awards: no h2 inside timeline lists" /awards/ '<div class="custom-site timeline-list">[^<]*<h2' 
-python3 - "$B" <<'PYAUDIT'
-import re,sys,urllib.request,html
+has "theme: light palette exists" /assets/css/custom-theme.css 'html\[data-theme="light"\]'
+has "theme: navbar toggle is rendered" /education/ 'data-theme-switch'
+has "theme: inline head initializer is rendered" /education/ 'var storedTheme = null'
+if python3 - "$B" <<'THEMEAUDIT'
+from pathlib import Path
+import re,sys,urllib.request
 base=sys.argv[1]
-def fetch(url):
- req=urllib.request.Request(url)
- with urllib.request.urlopen(req,timeout=20) as r:return r.read().decode()
-page=fetch(base+'/education/')
-paths=['/assets/css/custom-theme.css']
-paths += [html.unescape(x) for x in re.findall(r'<link[^>]+href=["\']([^"\']+\.css(?:\?[^"\']*)?)["\']',page,re.I)]
-paths=list(dict.fromkeys(paths)); css=''
-for path in paths:
- if path.startswith('//') or path.startswith('http'): continue
- css += '\n'+fetch(base+path.split('?',1)[0])
-fail=[]
-for value in re.findall(r'#[0-9a-fA-F]{3,8}\b',css):
- h=value[1:]
- if len(h) in (3,4): rgb=[int(c*2,16) for c in h[:3]]
- elif len(h) in (6,8): rgb=[int(h[i:i+2],16) for i in (0,2,4)]
- else: continue
- if len(set(rgb))>1: fail.append(value)
-for value in re.findall(r'rgba?\(([^)]*)\)|hsla?\(([^)]*)\)',css,re.I):
- raw=next(x for x in value if x); nums=re.findall(r'-?\d*\.?\d+',raw)
- if raw.lower().startswith('h') or len(nums)>=3:
-  if raw.lower().startswith('h') or len(set(nums[:3]))>1: fail.append(raw)
-for value in re.findall(r'(?<![-\w])(?:red|blue|green|yellow|orange|purple|pink|olive|teal|navy|cyan|magenta|rebeccapurple)(?![-\w])',css,re.I):fail.append(value)
-for name in ['--global-theme-color','--global-hover-color','--global-text-color-light','--global-divider-color','--global-card-bg-color']:
- if re.search(re.escape(name)+r'\s*:\s*(?!#(?:fff|ffffff|aaa|888|777|555|333|222|000)\b)[^;]+',css,re.I):fail.append(name+' non-neutral override')
-print('CSS color audit files:', ', '.join(paths))
-print('CSS color audit findings:', ', '.join(sorted(set(fail))) if fail else 'none')
-print('PASS  CSS color audit neutral' if not fail else 'FAIL  CSS color audit found chromatic values')
-sys.exit(bool(fail))
-PYAUDIT
+config=Path('_config.yml').read_text()
+disabled=bool(re.search(r'^enable_darkmode:\s*false\b',config,re.M))
+print(('PASS' if disabled else 'FAIL')+'  al-folio darkmode toggle disabled in config')
+# Count site runtime writers only; visual test tools intentionally seed `theme` for fixtures.
+runtime=list(Path('assets/js').rglob('*.js'))
+writers=[]
+setters=[]
+for path in runtime:
+ text=path.read_text()
+ if re.search(r'localStorage\.setItem\(\s*["\']theme["\']',text): writers.append(str(path))
+ if re.search(r'(?:setAttribute\(\s*["\']data-theme["\']|\.dataset\.theme\s*=)',text): setters.append(str(path))
+print(('PASS' if writers==['assets/js/theme.js'] else 'FAIL')+f'  runtime theme-key writer: {writers}')
+print(('PASS' if setters==['assets/js/theme.js'] else 'FAIL')+f'  runtime data-theme setter: {setters}')
+try:
+ with urllib.request.urlopen(base+'/education/',timeout=20) as response: page=response.read().decode()
+ head=page.split('</head>',1)[0]
+ init=head.find('var storedTheme = null')
+ styles=[m.start() for m in re.finditer(r'<link\b[^>]*>',head,re.I) if re.search(r'\brel=["\']stylesheet["\']',m.group(0),re.I)]
+ ordered=init>=0 and bool(styles) and init<min(styles)
+ print(('PASS' if ordered else 'FAIL')+'  theme initializer precedes first stylesheet in rendered head')
+ tags=re.findall(r'<script\b[^>]*>.*?</script\s*>',page,re.I|re.S)
+ inline_setters=[tag for tag in tags if 'src=' not in tag.split('>',1)[0] and re.search(r'setAttribute\(\s*["\']data-theme["\']',tag) and 'var storedTheme = null' not in tag]
+ srcs=re.findall(r'<script\b[^>]*\bsrc=["\']([^"\']+)["\'][^>]*>',page,re.I)
+ competing=[src for src in srcs if re.search(r'(^|/)(?:theme|dark-mode|darkmode)\.js(?:[?#]|$)',src,re.I) and not re.search(r'/assets/js/theme\.js(?:[?#]|$)',src)]
+ print(('PASS' if not inline_setters and not competing else 'FAIL')+f'  no competing rendered theme scripts (inline setters={len(inline_setters)}, theme scripts={competing})')
+ if not ordered or inline_setters or competing: sys.exit(1)
+except Exception as error:
+ print('FAIL  could not inspect rendered head order:',error); sys.exit(1)
+sys.exit(not (disabled and writers==['assets/js/theme.js'] and setters==['assets/js/theme.js']))
+THEMEAUDIT
+then ok "theme persistence has one runtime writer and head-first initialization"; else ko "theme persistence audit failed"; fi
+if python3 - <<'STATICCSS'
+import re,sys
+css=open('assets/css/custom-theme.css').read()
+blocks=list(re.finditer(r'(?m)^(?::root,\s*\nhtml\[data-theme="dark"\]|html\[data-theme="light"\])\s*\{[^}]*\}',css))
+if len(blocks)!=2:
+ print(f'FAIL  custom-theme.css: expected exactly two palette blocks, found {len(blocks)}'); sys.exit(1)
+masked=list(css)
+for match in blocks:
+ for i in range(match.start(),match.end()): masked[i]=' '
+rest=''.join(masked)
+patterns=[r'#[0-9a-fA-F]{3,8}\b',r'\b(?:rgba?|hsla?)\s*\(\s*(?:\d|#)',r'(?<![-\w])(?:white|black|red|blue|green|gray|grey|silver|purple|orange|yellow|pink|navy|teal|cyan|magenta|rebeccapurple)(?![-\w])']
+found=[m.group(0) for pattern in patterns for m in re.finditer(pattern,rest,re.I)]
+print('PASS  custom-theme.css: no literal colors outside the two palettes' if not found else 'FAIL  custom-theme.css literals outside palettes: '+', '.join(found))
+sys.exit(bool(found))
+STATICCSS
+then ok "custom-theme.css: literals are confined to the palettes"; else ko "custom-theme.css: color literals outside palettes"; fi
+if node bin/color-audit.js --both-themes --url="$B/education/"; then ok "computed color audit passes in both themes"; else ko "computed color audit failed"; fi
 
-echo; echo "RESULT: $P passed, $F failed"
 # Navbar/pager consistency and canonical destinations.
-python3 - <<'PY'
+if python3 - <<'PY'
 import re, urllib.request, sys
 base='http://localhost:8080'
 pages=['/','/education/','/projects/','/experience/','/awards/','/involvement/','/skills/','/blog/','/cv/']
@@ -85,3 +107,7 @@ print('Navbar order:', 'About, Education, Projects, Experience, Awards & Certifi
 print('Pager order: About, Education, Projects, Experience, Awards & Certifications, Involvement, Skills, Blog, CV')
 sys.exit(bool(failed))
 PY
+then :; else F=$((F+1)); fi
+
+echo; echo "RESULT: $P passed, $F failed"
+[ "$F" -eq 0 ]
